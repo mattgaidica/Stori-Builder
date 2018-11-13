@@ -1,0 +1,22 @@
+<%= form_with(model: strand, local: true) do |form| %>
+  <% if strand.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(strand.errors.count, "error") %> prohibited this strand from being saved:</h2>
+
+      <ul>
+      <% strand.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.number_field :position %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
