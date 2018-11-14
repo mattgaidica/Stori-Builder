@@ -21,6 +21,14 @@ class SourcesController < ApplicationController
   def edit
   end
 
+  def import
+    sumnotes = Sumnotes.new("matt","1234","path/to/file.pdf")
+    response = sumnotes.extract
+    @source = Source.first
+    @doc = Nokogiri::XML(File.open("/Users/mattgaidica/Desktop/Leventhal.bdb.xml"))
+    @records = @doc.css("record")
+  end
+
   # POST /sources
   # POST /sources.json
   def create
