@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :strands
+	resources :strands do
+    collection do
+      patch :sort
+    end
+  end
+  # resources :strands
   resources :thoughts
   resources :annotations
   resources :sources

@@ -64,3 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'feathericon-rails'
+gem 'jquery-ui-rails'
+gem 'rails-jquery-ui-sortable'
+gem 'acts_as_list'

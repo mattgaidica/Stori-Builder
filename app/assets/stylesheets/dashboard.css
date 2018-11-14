@@ -82,6 +82,10 @@ body {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
 
+.navbar-brand strong {
+  color: #8dc63f;
+}
+
 .navbar .form-control {
   padding: .75rem 1rem;
   border-width: 0;
@@ -97,4 +101,8 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+#strands li {
+    cursor: pointer;
 }

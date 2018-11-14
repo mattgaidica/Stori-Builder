@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body">
+    <!-- <h5 class="card-title">Stori for <strong><%= @thought.name %></strong></h5> -->
+    <h6 class="card-subtitle mb-2 text-muted"><%= @thought.name %></h6>
+    <p class="card-text">
+      <% @thought.strands.each do |strand| %>
+        <%= strand.annotation.body %><sup><%= strand.annotation.id %></sup>
+      <% end %>
+    </p>
+    <a href="#" class="card-link">Copy</a>
+    <a href="#" class="card-link">Bibliography</a>
+  </div>
+</div>

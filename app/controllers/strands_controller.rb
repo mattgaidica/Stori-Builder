@@ -7,6 +7,21 @@ class StrandsController < ApplicationController
     @strands = Strand.all
   end
 
+  def sort
+    @strands = Strand.all
+    
+    params[:strand].each_with_index do |id, index|
+      Strand.where(id: id).update_all(position: index + 1)
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
+
+    head :ok
+  end
+
   # GET /strands/1
   # GET /strands/1.json
   def show

@@ -1,9 +1,29 @@
-<p id="notice"><%= notice %></p>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <%= render 'layouts/notice', notice: @notice %>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%= @thought.name %></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button class="btn btn-sm btn-outline-secondary">Share</button>
+        <button class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @thought.name %>
-</p>
+  <ul id="strands" class="list-group list-group-item-action" data-url="<%= sort_strands_path %>">
+  	<% @thought.strands.each do |strand| %>
+  	  <li id="<%= dom_id(strand) %>" class="list-group-item list-group-item-action"><small><%= strand.annotation.body %></small></li>
+  	<% end %>
+	</ul>
 
-<%= link_to 'Edit', edit_thought_path(@thought) %> |
-<%= link_to 'Back', thoughts_path %>
+  <br>
+
+  <div class="stori">
+    <%= render 'stori', thought: @thought %>
+  </div>
+
+  <br>
+
+  <%= link_to 'Edit', edit_thought_path(@thought), :class => "btn btn-primary", :role => "button" %>
+  <%= link_to 'Back', thoughts_path, :class => "btn btn-dark", :role => "button" %>
+</main>
