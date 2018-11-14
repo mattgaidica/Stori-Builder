@@ -19,3 +19,6 @@ a = s.annotations.create :body => "Research has shown several generators of delt
 t = Thought.create :name => "Delta_20181113"
 
 reload!
+
+<%= debug(@some_object) %>
+render :text => @some_object.inspect

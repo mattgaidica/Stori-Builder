@@ -8,18 +8,16 @@ class StrandsController < ApplicationController
   end
 
   def sort
-    @strands = Strand.all
-    
     params[:strand].each_with_index do |id, index|
       Strand.where(id: id).update_all(position: index + 1)
     end
+
+    @thought = Strand.find(params[:strand].first).thought
 
     respond_to do |format|
       format.js
       format.html
     end
-
-    head :ok
   end
 
   # GET /strands/1

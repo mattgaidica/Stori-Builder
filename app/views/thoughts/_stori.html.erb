@@ -3,8 +3,8 @@
     <!-- <h5 class="card-title">Stori for <strong><%= @thought.name %></strong></h5> -->
     <h6 class="card-subtitle mb-2 text-muted"><%= @thought.name %></h6>
     <p class="card-text">
-      <% @thought.strands.each do |strand| %>
-        <%= strand.annotation.body %><sup><%= strand.annotation.id %></sup>
+      <% @thought.strands.each_with_index do |strand,index| %>
+        <%= strand.annotation.body %><sup><%= index + 1 %></sup>
       <% end %>
     </p>
     <a href="#" class="card-link">Copy</a>

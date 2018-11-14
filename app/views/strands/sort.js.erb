@@ -1,1 +1,1 @@
-$('.stori').append("<%= j render partial: 'stori', locals: {thought: @thought} %>");
+$("#stori").html("<%= escape_javascript(render partial: "thoughts/stori", locals: {thought: @thought}) %>");

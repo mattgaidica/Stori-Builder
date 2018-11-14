@@ -105,6 +105,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
+    log_buddy (0.7.0)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -224,6 +225,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
+  log_buddy
   puma (~> 3.11)
   rails (~> 5.2.1)
   rails-jquery-ui-sortable
