@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :holds
 	resources :strands do
     collection do
       patch :sort

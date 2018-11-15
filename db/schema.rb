@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_134119) do
+ActiveRecord::Schema.define(version: 2018_11_15_115400) do
 
   create_table "annotations", force: :cascade do |t|
     t.text "body"
@@ -18,6 +18,13 @@ ActiveRecord::Schema.define(version: 2018_11_13_134119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["source_id"], name: "index_annotations_on_source_id"
+  end
+
+  create_table "holds", force: :cascade do |t|
+    t.integer "annotation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["annotation_id"], name: "index_holds_on_annotation_id"
   end
 
   create_table "sources", force: :cascade do |t|
