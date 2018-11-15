@@ -12,7 +12,8 @@
 
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><strong>Stori</strong>Builder</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
+        <img src="/stori-logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""><strong>Stori</strong>Builder</a>
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -60,14 +61,16 @@
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Actions</span>
+              <% if defined? @thought and @thought.id.present? %>
+                <a class="deco-none" href="#"><span>Holds</span></a><a class="badge badge-warning" href="#">Transfer <span class="svg-active fe fe-forward"></span></a>
+              <% else %>
+                <a class="deco-none" href="#"><span>Holds</span></a><a class="badge badge-light" href="#">Transfer <span class="svg-active fe fe-forward"></span></a>
+              <% end %>
             </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Turk Sources
-                </a>
-              </li>
+            <ul class="list-group nav flex-column mb-2 list-group-flush">
+              <% Hold.all.each do |hold| %>
+                <li class="hold tiny list-group-item" style="padding: 0.25rem 0.25rem;"><%= hold.annotation.body %> <a href="#" class="remove">remove</a></li>
+              <% end %>
             </ul>
           </div>
         </nav>
