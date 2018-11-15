@@ -1,0 +1,11 @@
+<h1 class="h2"><%= @thought.name %></h1>
+<div class="btn-toolbar mb-2 mb-md-0">
+  <div class="btn-group mr-2">
+  	<% if current_page?(controller: :thoughts, action: :edit) %>
+  		<%= link_to 'Done', @thought, :class => "btn btn-sm btn-success", :role => "button" %>
+  	<% else %>
+      <%= link_to 'Edit', edit_thought_path(@thought), :class => "btn btn-sm btn-outline-secondary", :role => "button" %>
+    <% end %>
+  	<a href="#" class="btn btn-sm btn-outline-secondary clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'stori_plain', thought: @thought %>">Copy</a>
+  </div>
+</div>

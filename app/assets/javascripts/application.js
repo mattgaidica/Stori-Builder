@@ -18,4 +18,5 @@
 //= require jquery-ui-sortable
 //= require popper
 //= require bootstrap
+//= require clipboard
 //= require_tree .
