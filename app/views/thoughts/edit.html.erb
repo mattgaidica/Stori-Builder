@@ -6,7 +6,10 @@
 
   <ul id="strands" class="list-group list-group-item-action" data-url="<%= sort_strands_path %>">
   	<% @thought.strands.each do |strand| %>
-  	  <li id="<%= dom_id(strand) %>" class="list-group-item list-group-item-action"><small><%= strand.annotation.body %></small></li>
+  	  <li style="padding: 0.5rem 0.75rem;" id="<%= dom_id(strand) %>" class="list-group-item list-group-item-action">
+        <%= link_to raw('<span aria-hidden="true">&times;</span>'), strand, method: :delete, :class => 'close' %>
+        <mark><small><%= strand.annotation.body %></small></mark>
+      </li>
   	<% end %>
 	</ul>
 
@@ -15,6 +18,11 @@
   <div id="stori">
     <%= render 'stori', thought: @thought %>
   </div>
+
+  <br>
+
+  <%= link_to 'Destroy', @thought, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger float-right" %>
   
+  <div class="clearfix"></div>
   <br>
 </main>

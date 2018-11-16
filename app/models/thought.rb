@@ -1,5 +1,5 @@
 class Thought < ApplicationRecord
-	has_many :strands
+	has_many :strands, dependent: :destroy
 	has_many :annotations, through: :strands
 
 	def source_info

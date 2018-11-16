@@ -1,6 +1,15 @@
 class ThoughtsController < ApplicationController
   before_action :set_thought, only: [:show, :edit, :update, :destroy]
 
+  def transfer
+    @thought = Thought.find(params[:id])
+    Hold.all.each do |hold|
+      @thought.strands.create :annotation => hold.annotation
+    end
+    Hold.destroy_all
+    redirect_back(fallback_location: root_path)
+  end
+
   # GET /thoughts
   # GET /thoughts.json
   def index
@@ -10,6 +19,7 @@ class ThoughtsController < ApplicationController
   # GET /thoughts/1
   # GET /thoughts/1.json
   def show
+    @thought.touch
   end
 
   # GET /thoughts/new
@@ -19,6 +29,7 @@ class ThoughtsController < ApplicationController
 
   # GET /thoughts/1/edit
   def edit
+    @thought.touch
   end
 
   # POST /thoughts
@@ -28,7 +39,7 @@ class ThoughtsController < ApplicationController
 
     respond_to do |format|
       if @thought.save
-        format.html { redirect_to @thought, notice: 'Thought was successfully created.' }
+        format.html { redirect_to edit_thought_path(@thought), notice: 'Thought was successfully created.' }
         format.json { render :show, status: :created, location: @thought }
       else
         format.html { render :new }

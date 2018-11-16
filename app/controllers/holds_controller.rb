@@ -1,6 +1,6 @@
 class HoldsController < ApplicationController
   before_action :set_hold, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /holds
   # GET /holds.json
   def index
@@ -25,13 +25,14 @@ class HoldsController < ApplicationController
   # POST /holds.json
   def create
     @hold = Hold.new(hold_params)
+    @hold.annotation_id = params[:annotation_id] if params.has_key?(:annotation_id)
 
     respond_to do |format|
       if @hold.save
-        format.html { redirect_to @hold, notice: 'Hold was successfully created.' }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @hold }
       else
-        format.html { render :new }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render json: @hold.errors, status: :unprocessable_entity }
       end
     end
@@ -55,10 +56,11 @@ class HoldsController < ApplicationController
   # DELETE /holds/1.json
   def destroy
     @hold.destroy
-    respond_to do |format|
-      format.html { redirect_to holds_url, notice: 'Hold was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to holds_url, notice: 'Hold was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+    redirect_back(fallback_location: root_path)
   end
 
   private

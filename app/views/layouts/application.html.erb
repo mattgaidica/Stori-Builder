@@ -12,14 +12,21 @@
 
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
-        <img src="/stori-logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""><strong>Stori</strong>Builder</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
-        </li>
-      </ul>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><img src="/stori-logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""><strong class="brand">Stori</strong>Builder</a>
+      
+      <%= form_with url: new_search_path, method: :get, local: true, :class => "contents" do |form| %>
+        <% if defined? @search_term %>
+          <%= form.text_field :term, :class => "form-control form-control-dark w-100", :placeholder => @search_term, 'aria-label' => 'Search', :autocomplete => :off %>
+        <% else %>
+          <%= form.text_field :term, :class => "form-control form-control-dark w-100", :placeholder => 'Search', 'aria-label' => 'Search', :autocomplete => :off %>
+        <% end %>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <%= form.button "Submit", type: :submit, :class => "nav-link" %>
+            <!-- <a class="nav-link" href="/search/forstuff">Submit</a> -->
+          </li>
+        </ul>
+      <% end %>
     </nav>
 
     <!-- https://feathericon.com/ -->
@@ -28,16 +35,22 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link <%= 'active' if current_page?(root_path) %>" href="<%= url_for(action: 'dashboard',controller: 'pages') %>">
                   <span class="fe fe-home"></span>
                   Dashboard<% if current_page?(root_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a class="nav-link <%= 'active' if current_page?(thoughts_path) %>" href="<%= url_for(action: 'index',controller: 'thoughts') %>">
+                <a class="nav-link <%= 'active' if current_page?(thoughts_path) || current_page?(root_path) %>" href="<%= url_for(action: 'index',controller: 'thoughts') %>">
                   <span class="fe fe-donut"></span>
                   Thoughts <% if current_page?(thoughts_path) %><span class="sr-only">(current)</span><% end %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#exampleModal">
+                  <em class="brand"><span class="fe fe-plus"></span>
+                  Add New</em>
                 </a>
               </li>
               <li class="nav-item">
@@ -60,16 +73,30 @@
               </li>
             </ul>
 
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Activity</h6>
+            <% Thought.order("updated_at DESC").limit(5).each do |thought| %>
+              <a href="<%= url_for thought %>" class="btn btn-sm btn-block btn-light">
+                <small><%= thought.name %> <span class="badge badge-light"> <%= thought.strands.count %></span></small>
+              </a>
+            <% end %>
+
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <% if defined? @thought and @thought.id.present? %>
-                <a class="deco-none" href="#"><span>Holds</span></a><a class="badge badge-warning" href="#">Transfer <span class="svg-active fe fe-forward"></span></a>
+              <% if defined? @thought and @thought.id.present? and Hold.all.present? %>
+                <a class="deco-none" href="#"><span>Holds</span></a>
+                <%= link_to raw('transfer <span class="svg-active fe fe-forward"></span>'), transfer_path(@thought), method: :patch, :class => "badge badge-warning" %>
               <% else %>
-                <a class="deco-none" href="#"><span>Holds</span></a><a class="badge badge-light" href="#">Transfer <span class="svg-active fe fe-forward"></span></a>
+                <a class="deco-none" href="<%= url_for(controller: 'holds') %>"><span>Holds</span></a><a class="badge badge-light" href="#">Transfer <span class="svg-active fe fe-forward"></span></a>
               <% end %>
             </h6>
+
             <ul class="list-group nav flex-column mb-2 list-group-flush">
               <% Hold.all.each do |hold| %>
-                <li class="hold tiny list-group-item" style="padding: 0.25rem 0.25rem;"><%= hold.annotation.body %> <a href="#" class="remove">remove</a></li>
+                <%= link_to(hold_path(hold), method: :delete, :class => "rm-hold") do %>
+                  <li class="tiny hold list-group-item" style="padding: 0.25rem 0.25rem;">
+                    <% if defined? @thought and @thought.id.present? and @thought.annotations.where(id: hold.annotation_id).present? %>✓ <% end %>
+                    <%= hold.annotation.body %>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
           </div>
@@ -80,11 +107,29 @@
       </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <%= form_with(model: Thought.new, local: true) do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.text_field :name, :class => "form-control", :placeholder => "Thought Name",:autofocus => true, :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
   </body>
 
   <script>
     // Tooltip
-
     $('.clipboard-btn').tooltip({
       trigger: 'click',
       placement: 'bottom'
@@ -103,7 +148,6 @@
     }
 
     // Clipboard
-
     var clipboard = new Clipboard('.clipboard-btn');
 
     clipboard.on('success', function(e) {
@@ -114,6 +158,10 @@
     clipboard.on('error', function(e) {
       setTooltip(e.trigger, 'Failed!');
       hideTooltip(e.trigger);
+    });
+
+    $('.modal').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
     });
   </script>
   

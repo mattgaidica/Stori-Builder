@@ -1,17 +1,21 @@
-<div class="card">
-  <div class="card-body">
-    <!-- <h5 class="card-title">Stori for <strong><%= @thought.name %></strong></h5> -->
-    <!-- <h6 class="card-subtitle mb-2 text-muted"><%= @thought.name %></h6> -->
-    <p class="card-text">
-      <% @thought.strands.each_with_index do |strand,index| %>
-        <%= strand.annotation.body %><sup><%= @thought.source_info[1][index] %></sup>
-      <% end %>
-    </p>
-    <p class="card-text">
-      <% @thought.source_info[0].uniq.each_with_index do |source_id,index| %>
-        <small class="text-muted"><sup><%= index + 1 %></sup><%= Source.find(source_id).title %></small>
-        <br>
-      <% end %>
-    </p>
+<% unless @thought.strands.any? %>
+  <p><em>No strands yet.</em></p>
+<% else %>
+  <div class="card">
+    <div class="card-body">
+      <!-- <h5 class="card-title">Stori for <strong><%= @thought.name %></strong></h5> -->
+      <!-- <h6 class="card-subtitle mb-2 text-muted"><%= @thought.name %></h6> -->
+      <p class="card-text">
+        <% @thought.strands.each_with_index do |strand,index| %>
+          <%= strand.annotation.body %><sup><%= @thought.source_info[1][index] %></sup>
+        <% end %>
+      </p>
+      <p class="card-text">
+        <% @thought.source_info[0].uniq.each_with_index do |source_id,index| %>
+          <small class="text-muted"><sup><%= index + 1 %></sup><%= Source.find(source_id).title %></small>
+          <br>
+        <% end %>
+      </p>
+    </div>
   </div>
-</div>
+<% end %>

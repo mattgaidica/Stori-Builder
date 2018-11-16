@@ -13,6 +13,7 @@ class StrandsController < ApplicationController
     end
 
     @thought = Strand.find(params[:strand].first).thought
+    @thought.touch
 
     respond_to do |format|
       format.js
@@ -68,10 +69,11 @@ class StrandsController < ApplicationController
   # DELETE /strands/1.json
   def destroy
     @strand.destroy
-    respond_to do |format|
-      format.html { redirect_to strands_url, notice: 'Strand was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to strands_url, notice: 'Strand was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+    redirect_back(fallback_location: root_path)
   end
 
   private

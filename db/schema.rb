@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_115400) do
+ActiveRecord::Schema.define(version: 2018_11_15_154216) do
 
   create_table "annotations", force: :cascade do |t|
     t.text "body"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2018_11_15_115400) do
     t.integer "annotation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["annotation_id", "thought_id"], name: "index_strands_on_annotation_id_and_thought_id", unique: true
     t.index ["annotation_id"], name: "index_strands_on_annotation_id"
     t.index ["thought_id"], name: "index_strands_on_thought_id"
   end
