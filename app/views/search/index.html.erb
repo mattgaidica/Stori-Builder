@@ -15,7 +15,7 @@
           <thead class="thead-light">
             <tr>
               <th></th>
-              <th scope="col"><%= raw(Search.mark(@search_term,Annotation.find(annotation_id).source.title)) %></th>
+              <th scope="col"><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %></th>
             </tr>
           </thead>
           <tbody>
@@ -25,7 +25,7 @@
             <% disabled = Hold.where(annotation_id: annotation_id).present? %>
             <%= button_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "btn btn-sm btn-warning", disabled: disabled %>
           </td>
-          <td><small><%= raw(Search.mark(@search_term,Annotation.find(annotation_id).body)) %></small></td>
+          <td><small><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small></td>
         </tr>
         <% if index == JSON.parse(result).count %>
           </tbody>

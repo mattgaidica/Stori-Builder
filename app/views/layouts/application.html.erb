@@ -16,7 +16,7 @@
       
       <%= form_with url: new_search_path, method: :get, local: true, :class => "contents" do |form| %>
         <% if defined? @search_term %>
-          <%= form.text_field :term, :class => "form-control form-control-dark w-100", :placeholder => @search_term, 'aria-label' => 'Search', :autocomplete => :off %>
+          <%= form.text_field :term, :class => "form-control form-control-dark w-100", :value => @search_term, 'aria-label' => 'Search', :autocomplete => :off %>
         <% else %>
           <%= form.text_field :term, :class => "form-control form-control-dark w-100", :placeholder => 'Search', 'aria-label' => 'Search', :autocomplete => :off %>
         <% end %>

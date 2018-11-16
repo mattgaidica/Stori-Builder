@@ -22,7 +22,22 @@ s.annotations.create :body => "Blocking D1- but not D2-type dopamine receptors i
 
 s.annotations.create :body => "Ramping neurons can be strongly functionally coupled with delta rhythms (1–4 Hz), which are influenced by focal MFC D1DR agonists and antagonists [13, 18]. These data lead to the hypothesis that D1DR-dependent MFC delta rhythms critically regulate temporal processing."
 
-t = Thought.create :name => "Delta_20181113"
+s = Source.create :title => "Basal Ganglia Beta Oscillations Accompany Cue Utilization"
+
+s.annotations.create :body => "Beta phase was rapidly reset in response to salient cues, yet increases in beta power were not rigidly linked to cues, movements, or movement suppres- sion. Rather, beta power was enhanced after cues were used to determine motor output."
+
+s.annotations.create :body => "From these observations it has been hypothesized that beta oscillations in cortical-BG circuits are central to the systems- level pathophysiology of PD (Hammond et al., 2007; Weinberger et al., 2009), perhaps by interfering with the highly decorrelated patterns of neuronal spiking proposed to characterize normal BG information processing (Nini et al., 1995)."
+
+s.annotations.create :body => "These results have been taken as evidence that beta oscillations reflect ‘‘main- tenance of the status quo’’ in the motor system (Engel and Fries, 2010)."
+
+s.annotations.create :body => "This concept fits well with the proposed pathophysiolog- ical role of beta oscillations in PD, where patients have difficulty not only initiating movement, but also in stopping or switching between motor programs (Stoffers et al., 2001)."
+
+s = Source.create :title => "Decrease of Delta Oscillatory Responses in Cognitively Normal Parkinson’s Disease"
+
+s.annotations.create :body => "Parkinson’s disease (PD) is the second most common neuro- logical disorder and affects more than 4 million people world- wide.1 PD is mainly characterized by the progressive loss of dopaminergic neurons in the substantia nigra, resulting in the key motor symptoms of the disease."
+s.annotations.create :body => "In the present study, decreased amplitudes of delta ERO were found in patients with PD at frontal, central, and parietal loca- tions. Delta ERO is thought to mirror the activity in the circuit pathway that connects the frontal and temporal/parietal brain regions."
+s.annotations.create :body => "Delta ERO reductions have also been reported in other disorders with cognitive dysfunction such as AD,9 MCI,8,16 schizophrenia,34 bipolar disorder,35 as well as in physiological aging.36"
+s.annotations.create :body => "Decreased amplitude of P300 is generally inter- pretedaslesscognitiveresourcesavailableforthegiventask."
 
 reload!
 

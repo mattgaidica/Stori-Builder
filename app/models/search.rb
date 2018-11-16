@@ -18,9 +18,4 @@ class Search < ApplicationRecord
     end
     return results
   end
-
-  def self.mark(term,text)
-    text.gsub(term,"<mark>#{term}</mark>")
-  end
-
 end
