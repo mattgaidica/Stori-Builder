@@ -1,0 +1,15 @@
+
+<table class="table table-sm">
+  <tbody>
+    <% @source.annotations.each_with_index do |annotation,index| %>
+      <tr>
+        <td>
+          <% disabled = Hold.where(annotation_id: annotation.id).present? %>
+          <%= button_to 'Hold', holds_path(:annotation_id => annotation.id), method: :post, :class => "btn btn-sm btn-warning", disabled: disabled %>
+        </td>
+        <td><small><%= annotation.body %></small></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>

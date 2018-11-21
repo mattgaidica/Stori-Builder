@@ -50,7 +50,7 @@ class SourcesController < ApplicationController
   def update
     respond_to do |format|
       if @source.update(source_params)
-        format.html { redirect_to @source, notice: 'Source was successfully updated.' }
+        format.html { redirect_to edit_source_path(@source), notice: 'Source was successfully updated.' }
         format.json { render :show, status: :ok, location: @source }
       else
         format.html { render :edit }
@@ -77,6 +77,6 @@ class SourcesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def source_params
-      params.require(:source).permit(:title)
+      params.require(:source).permit(:title, annotations_attributes: [:id, :body])
     end
 end

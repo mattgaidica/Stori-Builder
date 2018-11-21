@@ -25,10 +25,11 @@ class AnnotationsController < ApplicationController
   # POST /annotations.json
   def create
     @annotation = Annotation.new(annotation_params)
+    puts annotation_params
 
     respond_to do |format|
       if @annotation.save
-        format.html { redirect_to @annotation, notice: 'Annotation was successfully created.' }
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { render :show, status: :created, location: @annotation }
       else
         format.html { render :new }
@@ -56,7 +57,7 @@ class AnnotationsController < ApplicationController
   def destroy
     @annotation.destroy
     respond_to do |format|
-      format.html { redirect_to annotations_url, notice: 'Annotation was successfully destroyed.' }
+      format.html { redirect_back(fallback_location: root_path) }
       format.json { head :no_content }
     end
   end

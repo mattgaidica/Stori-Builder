@@ -19,4 +19,5 @@
 //= require popper
 //= require bootstrap
 //= require clipboard
+//= require autosize
 //= require_tree .

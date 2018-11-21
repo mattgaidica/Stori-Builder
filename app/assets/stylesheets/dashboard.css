@@ -156,8 +156,19 @@ a.remove:hover {
   color:#dc3545
 }
 
+a.little-hold {
+  color: #ffc107;
+}
+a.little-hold:hover {
+  color: #ffc107;
+}
+
 button.nav-link {
   background-color: inherit;
   border-style: none;
   cursor: pointer;
+}
+
+.form-group textarea {
+  font-size: 1rem;
 }

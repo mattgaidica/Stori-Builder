@@ -14,18 +14,15 @@
         <% if index == 0 %>
           <thead class="thead-light">
             <tr>
-              <th></th>
-              <th scope="col"><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %></th>
+              <th scope="col"><%= link_to edit_source_path(Annotation.find(annotation_id).source_id), :class => 'deco-none' do %><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %><% end %></th>
             </tr>
           </thead>
           <tbody>
         <% end %>
         <tr>
           <td>
-            <% disabled = Hold.where(annotation_id: annotation_id).present? %>
-            <%= button_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "btn btn-sm btn-warning", disabled: disabled %>
+            <small><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small><% unless Hold.where(annotation_id: annotation_id).present? %><br><span class="tiny" style="line-height:0;"><%= link_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span><% end %>
           </td>
-          <td><small><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small></td>
         </tr>
         <% if index == JSON.parse(result).count %>
           </tbody>

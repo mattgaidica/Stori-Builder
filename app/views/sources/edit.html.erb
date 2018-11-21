@@ -1,6 +1,46 @@
-<h1>Editing Source</h1>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <%= render 'layouts/notice', notice: @notice %>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <%= render 'header', source: @source %>
+  </div>
 
-<%= render 'form', source: @source %>
+<%= form_for(@source) do |form| %>
+  <%= form.submit "Update", :class => "btn btn-outline-primary float-right"%>
+    <a class="small nav-link" href="#" data-toggle="modal" data-target="#annotationModal"><em class="brand"><span class="fe fe-plus"></span> New Annotation</em></a>
 
-<%= link_to 'Show', @source %> |
-<%= link_to 'Back', sources_path %>
+    <br>
+  
+    <%= form.hidden_field :title %>
+      <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
+        <div class="form-group" style="margin-bottom:0.5rem">
+          <%= annotation_fields.text_area :body, class: "form-control" %>
+          <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
+        </div>
+      <% end %>
+    <% end %>
+    <br>
+    <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger float-right" %>
+  
+  <div class="clearfix"></div>
+  <br>
+</main>
+
+<!-- Annotation Modal -->
+<div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="New Annotation" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with(model: Annotation.new, local: true) do |form| %>
+      <div class="modal-body">
+        <div class="form-group">
+          <%= form.text_area :body, :class => "form-control", :placeholder => "Annotation body...",:autofocus => true, :autocomplete => :off, rows: "6" %>
+          <%= form.hidden_field :source_id, :value => @source.id %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= form.submit 'Submit', :class => "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
