@@ -14,7 +14,11 @@
         <% if index == 0 %>
           <thead class="thead-light">
             <tr>
-              <th scope="col"><%= link_to edit_source_path(Annotation.find(annotation_id).source_id), :class => 'deco-none' do %><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %><% end %></th>
+              <th scope="col">
+                <%= link_to edit_source_path(Annotation.find(annotation_id).source_id), :class => 'deco-none' do %><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %><% end %>
+                <br>
+                <small><%= highlight(Annotation.find(annotation_id).source.authors,@search_term) %></small>
+              </th>
             </tr>
           </thead>
           <tbody>

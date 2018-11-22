@@ -1,11 +1,12 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
   <%= render 'layouts/notice', notice: @notice %>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <!-- removed d-flex -->
+  <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <%= render 'header', source: @source %>
   </div>
 
 <%= form_for(@source) do |form| %>
-  <%= form.submit "Update", :class => "btn btn-outline-primary float-right"%>
+    <%= form.submit "Update", :class => "btn btn-outline-primary float-right"%>
     <a class="small nav-link" href="#" data-toggle="modal" data-target="#annotationModal"><em class="brand"><span class="fe fe-plus"></span> New Annotation</em></a>
 
     <br>
@@ -17,9 +18,11 @@
           <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
         </div>
       <% end %>
-    <% end %>
+    
     <br>
     <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger float-right" %>
+    <% end %>
+    
   
   <div class="clearfix"></div>
   <br>

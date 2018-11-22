@@ -22,11 +22,29 @@ class SourcesController < ApplicationController
   end
 
   def import
-    sumnotes = Sumnotes.new("matt","1234","path/to/file.pdf")
-    response = sumnotes.extract
-    @source = Source.first
-    @doc = Nokogiri::XML(File.open("/Users/mattgaidica/Desktop/Leventhal.bdb.xml"))
-    @records = @doc.css("record")
+    if params[:source_path].present?
+      Dir["#{params[:source_path]}/*.html"].each do |html_file|
+        puts html_file
+        # check for file, if exists skip it
+        if Source.where(html_file: html_file).empty?
+          doc = Nokogiri::HTML(File.open(html_file))
+          title = doc.css('h1').first.text
+          # init by title
+          source = Source.find_or_initialize_by(title: title)
+          source.authors = doc.css('h2').first.text
+          source.html_file = html_file
+          source.pdf_link = doc.css('a').first[:href]
+          if source.save
+            doc.css('p').each do |body|
+              if Annotation.where("body LIKE '%#{body.text[1..10]}%'").empty?
+                annotation = Annotation.create(source_id: source.id, body: Source.clean(body.text))
+              end
+            end
+          end
+        end
+      end
+    end
+    redirect_to sources_url
   end
 
   # POST /sources

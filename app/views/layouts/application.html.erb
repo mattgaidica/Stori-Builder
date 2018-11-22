@@ -59,7 +59,13 @@
                   Sources <% if current_page?(sources_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
               </li>
-              <li class="nav-item">
+               <li class="nav-item">
+                <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#sourceModal">
+                  <em class="brand"><span class="fe fe-plus"></span>
+                  Import Sources</em>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
                 <a class="nav-link <%= 'active' if current_page?(annotations_path) %>" href="<%= url_for(action: 'index',controller: 'annotations') %>">
                   <span class="fe fe-quote-left"></span>
                   Annotations <% if current_page?(annotations_path) %><span class="sr-only">(current)</span><% end %>
@@ -70,7 +76,7 @@
                   <span class="fe fe-line-chart"></span>
                   Strands <% if current_page?(strands_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
-              </li>
+              </li> -->
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Activity</h6>
@@ -115,6 +121,27 @@
           <div class="modal-body">
             <div class="form-group">
               <%= form.text_field :name, :class => "form-control", :placeholder => "Thought Name",:autofocus => true, :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Source Modal -->
+    <!-- default found in config/environments -->
+    <div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-labelledby="New Thought" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <%= form_with url: import_sources_path, method: :post, local: true, :class => "contents" do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="sourcePath">Source Path</label>
+              <%= form.text_field :source_path, :class => "form-control form-control-dark w-100", :value => Rails.application.config.default_source_path, 'aria-label' => 'Source path', :autocomplete => :off %>
             </div>
           </div>
           <div class="modal-footer">
