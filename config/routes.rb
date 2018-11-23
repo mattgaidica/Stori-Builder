@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/sources/:id/reimport', to: 'sources#reimport', as: 'reimport'
+
   resources :thoughts
   patch '/thoughts/:id/transfer', to: 'thoughts#transfer', as: 'transfer'
 

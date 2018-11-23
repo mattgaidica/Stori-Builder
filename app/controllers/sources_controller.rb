@@ -1,5 +1,5 @@
 class SourcesController < ApplicationController
-  before_action :set_source, only: [:show, :edit, :update, :destroy]
+  before_action :set_source, only: [:show, :edit, :update, :destroy, :reimport]
 
   # GET /sources
   # GET /sources.json
@@ -21,26 +21,21 @@ class SourcesController < ApplicationController
   def edit
   end
 
+  def reimport
+    @source.import
+    redirect_to edit_source_path(@source)
+  end
+
   def import
     if params[:source_path].present?
       Dir["#{params[:source_path]}/*.html"].each do |html_file|
-        puts html_file
-        # check for file, if exists skip it
+        # check for file, if exists skip it, handle re-import elsewhere
         if Source.where(html_file: html_file).empty?
           doc = Nokogiri::HTML(File.open(html_file))
           title = doc.css('h1').first.text
-          # init by title
           source = Source.find_or_initialize_by(title: title)
-          source.authors = doc.css('h2').first.text
           source.html_file = html_file
-          source.pdf_link = doc.css('a').first[:href]
-          if source.save
-            doc.css('p').each do |body|
-              if Annotation.where("body LIKE '%#{body.text[1..10]}%'").empty?
-                annotation = Annotation.create(source_id: source.id, body: Source.clean(body.text))
-              end
-            end
-          end
+          source.import
         end
       end
     end

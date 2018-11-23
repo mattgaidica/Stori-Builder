@@ -20,7 +20,10 @@
       <% end %>
     
     <br>
-    <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger float-right" %>
+    <div class="text-right">
+      <%= link_to 'Reimport', reimport_path(@source), :class => "btn btn-outline-success" %>
+      <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger" %>
+    </div>
     <% end %>
     
   
