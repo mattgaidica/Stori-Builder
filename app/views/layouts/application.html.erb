@@ -156,11 +156,18 @@
   </body>
 
   <script>
-    var contents = $('.edit-title').html();
+    var editTitle = $('.edit-title').html();
     $('.edit-title').blur(function() {
-      if (contents!=$(this).html()){
-          contents = $(this).html();
-          $('#source_title').val(contents);
+      if (editTitle!=$(this).html()){
+          editTitle = $(this).html();
+          $('#source_title').val(editTitle);
+      }
+    });
+    var editAuthors = $('.edit-authors').html();
+    $('.edit-authors').blur(function() {
+      if (editAuthors!=$(this).html()){
+          editAuthors = $(this).html();
+          $('#source_authors').val(editAuthors);
       }
     });
 

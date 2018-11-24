@@ -6,25 +6,27 @@
   </div>
 
 <%= form_for(@source) do |form| %>
+  <div class="clearfix">
     <%= form.submit "Update", :class => "btn btn-outline-primary float-right"%>
-    <a class="small nav-link" href="#" data-toggle="modal" data-target="#annotationModal"><em class="brand"><span class="fe fe-plus"></span> New Annotation</em></a>
+    <a style="display:inline" class="small nav-link" href="#" data-toggle="modal" data-target="#annotationModal"><em class="brand"><span class="fe fe-plus"></span> New Annotation</em></a>
+  </div>
+  <br>
 
-    <br>
-  
-    <%= form.hidden_field :title %>
-      <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
-        <div class="form-group" style="margin-bottom:0.5rem">
-          <%= annotation_fields.text_area :body, class: "form-control" %>
-          <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
-        </div>
-      <% end %>
-    
-    <br>
-    <div class="text-right">
-      <%= link_to 'Reimport', reimport_path(@source), :class => "btn btn-outline-success" %>
-      <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger" %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :authors %>
+  <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
+    <div class="form-group" style="margin-bottom:0.5rem">
+      <%= annotation_fields.text_area :body, class: "form-control" %>
+      <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
     </div>
-    <% end %>
+  <% end %>
+  
+  <br>
+  <div class="text-right">
+    <%= link_to 'Reimport', reimport_path(@source), :class => "btn btn-outline-success" %>
+    <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger" %>
+  </div>
+  <% end %>
     
   
   <div class="clearfix"></div>
