@@ -42,7 +42,26 @@
                 </a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link <%= 'active' if current_page?(thoughts_path) || current_page?(root_path) %>" href="<%= url_for(action: 'index',controller: 'thoughts') %>">
+                <a class="nav-link <%= 'active' if current_page?(sources_path) || current_page?(root_path) %>" href="<%= url_for(action: 'index',controller: 'sources') %>">
+                  <span class="fe fe-layer"></span>
+                  Sources <% if current_page?(sources_path) %><span class="sr-only">(current)</span><% end %>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#sourceModal">
+                  <em class="brand"><span class="fe fe-plus"></span>
+                  New Source</em>
+                </a>
+              </li>
+              </li>
+               <li class="nav-item">
+                <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#sourceImportModal">
+                  <em class="brand"><span class="fe fe-plus"></span>
+                  Import Sources</em>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <%= 'active' if current_page?(thoughts_path) %>" href="<%= url_for(action: 'index',controller: 'thoughts') %>">
                   <span class="fe fe-donut"></span>
                   Thoughts <% if current_page?(thoughts_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
@@ -51,18 +70,6 @@
                 <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#thoughtModal">
                   <em class="brand"><span class="fe fe-plus"></span>
                   New Thought</em>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link <%= 'active' if current_page?(sources_path) %>" href="<%= url_for(action: 'index',controller: 'sources') %>">
-                  <span class="fe fe-layer"></span>
-                  Sources <% if current_page?(sources_path) %><span class="sr-only">(current)</span><% end %>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a style="padding:0rem 1rem 0.75rem 1.5rem" class="nav-link small" href="#" data-toggle="modal" data-target="#sourceModal">
-                  <em class="brand"><span class="fe fe-plus"></span>
-                  Import Sources</em>
                 </a>
               </li>
               <!-- <li class="nav-item">
@@ -113,6 +120,29 @@
       </div>
     </div>
 
+    <!-- Source Modal -->
+    <div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-labelledby="New Source" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <%= form_with(model: Source.new, local: true) do |form| %>
+          <div class="modal-body">
+            <label for="newSource">New Source</label>
+            <div class="form-group">
+              <%= form.text_field :title, :class => "form-control", :placeholder => "Title",:autofocus => true, :autocomplete => :off %>
+            </div>
+            <div class="form-group">
+              <%= form.text_field :authors, :class => "form-control", :placeholder => "Authors", :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <!-- Thought Modal -->
     <div class="modal fade" id="thoughtModal" tabindex="-1" role="dialog" aria-labelledby="New Thought" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -132,15 +162,15 @@
       </div>
     </div>
 
-    <!-- Source Modal -->
+    <!-- Source Import Modal -->
     <!-- default found in config/environments -->
-    <div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-labelledby="New Thought" aria-hidden="true">
+    <div class="modal fade" id="sourceImportModal" tabindex="-1" role="dialog" aria-labelledby="New Source Import" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <%= form_with url: import_sources_path, method: :post, local: true, :class => "contents" do |form| %>
           <div class="modal-body">
+            <label for="sourceImportPath">Source Path</label>
             <div class="form-group">
-              <label for="sourcePath">Source Path</label>
               <%= form.text_field :source_path, :class => "form-control form-control-dark w-100", :value => Rails.application.config.default_source_path, 'aria-label' => 'Source path', :autocomplete => :off %>
             </div>
           </div>

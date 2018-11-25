@@ -1,6 +1,4 @@
-<% unless @thought.strands.any? %>
-  <p><em>No strands yet.</em></p>
-<% else %>
+<% if @thought.strands.any? %>
   <div class="card">
     <div class="card-body">
       <!-- <h5 class="card-title">Stori for <strong><%= @thought.name %></strong></h5> -->

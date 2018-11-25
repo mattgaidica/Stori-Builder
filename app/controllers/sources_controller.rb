@@ -10,6 +10,7 @@ class SourcesController < ApplicationController
   # GET /sources/1
   # GET /sources/1.json
   def show
+    redirect_to edit_source_path(@source)
   end
 
   # GET /sources/new
@@ -57,7 +58,7 @@ class SourcesController < ApplicationController
 
     respond_to do |format|
       if @source.save
-        format.html { redirect_to @source, notice: 'Source was successfully created.' }
+        format.html { redirect_to edit_source_path(@source), notice: 'Source was successfully created.' }
         format.json { render :show, status: :created, location: @source }
       else
         format.html { render :new }

@@ -24,6 +24,6 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
 
-  root to: 'thoughts#index'
+  root to: 'sources#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

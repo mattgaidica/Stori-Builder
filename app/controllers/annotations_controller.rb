@@ -24,18 +24,11 @@ class AnnotationsController < ApplicationController
   # POST /annotations
   # POST /annotations.json
   def create
-    @annotation = Annotation.new(annotation_params)
-    puts annotation_params
-
-    respond_to do |format|
-      if @annotation.save
-        format.html { redirect_back(fallback_location: root_path) }
-        format.json { render :show, status: :created, location: @annotation }
-      else
-        format.html { render :new }
-        format.json { render json: @annotation.errors, status: :unprocessable_entity }
-      end
+    annotation_params[:body].split('* ').reject {|x| x.empty?}.each do |body|
+      Annotation.create(source_id: annotation_params[:source_id], body: body)
     end
+
+    redirect_back(fallback_location: root_path)
   end
 
   # PATCH/PUT /annotations/1

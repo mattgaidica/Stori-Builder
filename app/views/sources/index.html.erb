@@ -9,36 +9,25 @@
       </div>
     </div>
   </div>
-  <table class="table table-bordered table-dark table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <% @sources.each do |source| %>
-        <tr>
-          <td><%= source.id %></td>
-          <td>
-            <%= source.title %>
-            <% unless source.html_file.nil? %>
-              <br><small><%= source.html_file %></small>
-            <% end %>
-            <% unless source.authors.nil? %>
-              <br><small><%= source.authors %></small>
-            <% end %>
-          </td>
-          <td><%= link_to 'Edit', edit_source_path(source) %></td>
-          <td><%= link_to 'Destroy', source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+  <% @sources.order(:title).in_groups_of(3,false) do |group| %>
+    <div class="card-deck">
+      <% group.each do |source| %>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body" style="padding:0.75rem;">
+            <h6 class="card-title"><%= link_to source.title, edit_source_path(source), class: 'deco-none' %></h6>
+            <h6 class="card-subtitle mb-2 text-muted smaller"><%= source.authors %></h6>
+          </div>
+          <div class="card-footer" style="padding: 0.5rem 0.75rem;<% if source.updated_at > 24.hours.ago %>background-color: rgb(225, 255, 225);<% end %>">
+            <small class="text-muted smaller">Updated <%= time_ago_in_words(source.created_at) %> ago</small>
+            <%= link_to raw('&times'), source, method: :delete, style: 'opacity:1', class: 'card-link close remove float-right', data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+    <br>
+  <% end %>
 
   <br>
 
-  <%= link_to 'New Source', new_source_path, :class => "btn btn-primary", :role => "button" %>
 </main>
