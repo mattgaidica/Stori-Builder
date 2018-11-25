@@ -107,6 +107,11 @@ body {
     cursor: pointer;
 }
 
+.smaller {
+  font-size: 70%;
+  line-height: 1rem;
+}
+
 .tiny {
   font-size: .1rem;
 }

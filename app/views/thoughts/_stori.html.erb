@@ -8,12 +8,13 @@
 
       <p class="card-text">
         <% @thought.strands.each_with_index do |strand,index| %>
-          <mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,@thought.source_info[1][index]) %>,90%,95%)"><%= strand.annotation.body %><sup><%= link_to edit_source_path(strand.annotation.source_id), class: "deco-none" do %><%= @thought.source_info[1][index] %></sup></mark><% end %>
+          <small class="smaller"><mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,@thought.source_info[1][index]) %>,90%,95%)"><%= strand.annotation.body %><sup><%= link_to edit_source_path(strand.annotation.source_id), class: "deco-none" do %><%= @thought.source_info[1][index] %></sup></mark></small><% end %>
         <% end %>
       </p>
       <p class="card-text">
+        <strong>Sources</strong><br>
         <% @thought.source_info[0].uniq.each_with_index do |source_id,index| %>
-          <mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,index + 1) %>,90%,95%)"><%= link_to edit_source_path(source_id), class: "deco-none" do %><small class="text-muted"><sup><%= index + 1 %></sup><%= Source.find(source_id).title %></small></mark><% end %>
+          <mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,index + 1) %>,90%,95%)"><%= link_to edit_source_path(source_id), class: "deco-none" do %><small class="text-muted smaller"><sup><%= index + 1 %></sup><%= Source.find(source_id).title %></small></mark><% end %>
           <br>
         <% end %>
       </p>

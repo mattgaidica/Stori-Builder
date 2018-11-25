@@ -29,7 +29,12 @@ class SourcesController < ApplicationController
 
   def import
     if params[:source_path].present?
-      Dir["#{params[:source_path]}/*.html"].each do |html_file|
+      if File.file?params[:source_path]
+        files = [params[:source_path]]
+      else
+        files = Dir["#{params[:source_path]}/*.html"]
+      end
+      files.each do |html_file|
         # check for file, if exists skip it, handle re-import elsewhere
         if Source.where(html_file: html_file).empty?
           doc_info = Source.extract_doc(html_file)
