@@ -10,24 +10,29 @@
     </div>
   </div>
 
-  <% @sources.order(:title).in_groups_of(3,false) do |group| %>
+  <% @sources.order(:title).in_groups_of(3) do |group| %>
     <div class="card-deck">
       <% group.each do |source| %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body" style="padding:0.75rem;">
-            <h6 class="card-title"><%= link_to source.title, edit_source_path(source), class: 'deco-none' %></h6>
-            <h6 class="card-subtitle mb-2 text-muted smaller"><%= source.authors %></h6>
-          </div>
-          <div class="card-footer" style="padding: 0.5rem 0.75rem;<% if source.updated_at > 24.hours.ago %>background-color: rgb(225, 255, 225);<% end %>">
-            <small class="text-muted smaller">Updated <%= time_ago_in_words(source.created_at) %> ago</small>
-            <%= link_to raw('&times'), source, method: :delete, style: 'opacity:1', class: 'card-link close remove float-right', data: { confirm: 'Are you sure?' } %>
-          </div>
+        <div class="card text-white bg-dark source-card" style="width: 18rem;">
+          <% if source.nil? %>
+            <div class="card-body" style="padding:0.75rem;">
+              <div style="font-size:7.5rem;text-align:center;"><a href="#" data-toggle="modal" data-target="#sourceModal" class="deco-none">+</a></div>
+            </div>
+          <% else %>
+              <div class="card-body" style="padding:0.75rem;">
+              <h6 class="card-title"><%= link_to source.title, edit_source_path(source), class: 'deco-none' %></h6>
+              <h6 class="card-subtitle mb-2 text-muted smaller"><%= source.authors %></h6>
+            </div>
+            <div class="card-footer" style="padding: 0.5rem 0.75rem;<% if source.updated_at > 60.minutes.ago %>background-color: rgb(225, 255, 225);<% else %>background-color: #efefef;<% end %>">
+              <small class="text-muted smaller"><%= source.id %> | Updated <%= time_ago_in_words(source.created_at) %> ago</small>
+              <%= link_to raw('&times'), source, method: :delete, style: 'opacity:1', class: 'card-link close remove float-right', data: { confirm: 'Are you sure?' } %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
     <br>
   <% end %>
 
-  <br>
 
 </main>

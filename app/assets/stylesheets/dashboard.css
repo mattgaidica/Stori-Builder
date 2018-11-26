@@ -181,3 +181,11 @@ button.nav-link {
 .bolder {
   font-weight:bolder;
 }
+
+.source-card {
+  transition: transform .2s;
+}
+
+.source-card:hover {
+  transform: scale(1.1);
+}

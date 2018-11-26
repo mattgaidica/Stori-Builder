@@ -18,6 +18,7 @@ class Annotation < ApplicationRecord
     text = text.strip
     text = text.gsub("- ","")
     text[0] = text[0].upcase
+    text = text.chomp(',')
     unless text.last.eql? "."
       text = "#{text}."
     end
