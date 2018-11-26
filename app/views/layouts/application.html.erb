@@ -186,6 +186,18 @@
   </body>
 
   <script>
+    $(".list-group-item").hover(
+      function() {
+        thisid = $( this ).attr('id');
+        $('#' + thisid + ' small').addClass( "bolder" );
+        $('#slave_' + thisid).addClass( "bolder" );
+      }, function() {
+        thisid = $( this ).attr('id');
+        $('#' + thisid + ' small').removeClass( "bolder" );
+        $('#slave_' + thisid).removeClass( "bolder" );
+      }
+    );
+
     var editTitle = $('.edit-title').html();
     $('.edit-title').blur(function() {
       if (editTitle!=$(this).html()){

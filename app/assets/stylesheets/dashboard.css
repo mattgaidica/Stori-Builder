@@ -177,3 +177,7 @@ button.nav-link {
 .form-group textarea {
   font-size: 1rem;
 }
+
+.bolder {
+  font-weight:bolder;
+}
