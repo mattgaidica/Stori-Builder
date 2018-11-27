@@ -8,32 +8,29 @@
     <p><em>No search results.</em></p>
   <% end %>
 
-  <% @results.each do |result| %>
+  <% @results.map{|x,y|x}.uniq.each do |source_id| %>
     <table class="table table-sm">
-      <% JSON.parse(result).each_with_index do |annotation_id,index| %>
-        <% if index == 0 %>
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">
-                <%= link_to edit_source_path(Annotation.find(annotation_id).source_id), :class => 'deco-none' do %><%= highlight(Annotation.find(annotation_id).source.title,@search_term) %><% end %>
-                <br>
-                <small><%= highlight(Annotation.find(annotation_id).source.authors,@search_term) %></small>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-        <% end %>
+      <thead class="thead-light">
         <tr>
-          <td>
-            <small><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small>
-          </td>
+          <th scope="col">
+            <%= link_to edit_source_path(Source.find(source_id)), :class => 'deco-none' do %><%= highlight(Source.find(source_id).title,@search_term) %><% end %>
+            <br>
+            <small><%= highlight(Source.find(source_id).authors,@search_term) %></small>
+          </th>
         </tr>
-        <% if index == JSON.parse(result).count %>
-          </tbody>
+      </thead>
+      <tbody>
+
+        <% @results.map{|x,y| y if x==source_id}.compact.each do |annotation_id| %>
+          <tr>
+            <td>
+              <small><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small>
+            </td>
+          </tr>
         <% end %>
-      <% end %>
+
+      </tbody>
     </table>
-    <br>
   <% end %>
 
   <br>
