@@ -15,6 +15,7 @@ class Annotation < ApplicationRecord
 
   def self.clean(text)
     text = text.gsub("\n"," ")
+    text = text.gsub("`","'")
     text = text.strip
     text = text.gsub("- ","")
     text[0] = text[0].upcase
