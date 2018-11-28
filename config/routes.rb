@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :holds
+  resources :citations
 
 	resources :strands do
     collection do
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   get '/search', to: 'search#new', as: 'new_search'
 
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
+  get '/reading', to: 'pages#reading', as: 'reading'
 
   root to: 'sources#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,6 +1,7 @@
 class Source < ApplicationRecord
 	has_many :annotations, dependent: :destroy
-  accepts_nested_attributes_for :annotations
+  has_many :citations, dependent: :destroy
+  accepts_nested_attributes_for :annotations, :citations
 
   def has_similar_annotation(body)
     has_similar = false
@@ -10,10 +11,24 @@ class Source < ApplicationRecord
     return has_similar
   end
 
+  def has_similar_citation(cited_as)
+    has_similar = false
+    self.citations.each do |reference|
+      has_similar = true if reference.cited_as.similar(cited_as) > 85
+    end
+    return has_similar
+  end
+
   def annotate(doc_info)
     doc_info[:annotations].each do |body|
       unless self.has_similar_annotation(body)
         annotation = Annotation.create(source_id: self.id, body: body)
+      end
+    end
+
+    doc_info[:citations].each do |cited_as|
+      unless self.has_similar_citation(cited_as)
+        citation = Citation.create(source_id: self.id, cited_as: cited_as)
       end
     end
   end
@@ -50,6 +65,10 @@ class Source < ApplicationRecord
     items = doc.css(".item").map {|x| x.text.match(regexp)}
     annotations = items.compact.map {|x| x[:text]}
 
-    {title: title, authors: authors, annotations: annotations}
+    regexp = /strikeout \[page \d+\]: (?<text>.+)/
+    items = doc.css(".item").map {|x| x.text.match(regexp)}
+    citations = items.compact.map {|x| x[:text]}
+
+    {title: title, authors: authors, annotations: annotations, citations: citations}
   end
 end

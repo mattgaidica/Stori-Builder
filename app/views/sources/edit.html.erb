@@ -20,6 +20,18 @@
       <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
     </div>
   <% end %>
+
+  <% unless @source.citations.empty? %>
+    <br>
+    <h6>Reading List</h6>
+
+    <div class="form-check">
+      <%= form.fields_for :citations, @source.citations.each do |citation_fields| %>
+        <%= citation_fields.check_box :is_read, class: "form-check-input" %>
+        <label class="form-check-label"><%= Citation.find(citation_fields.object.id).cited_as %></label>
+      <% end %>
+    </div>
+  <% end %>
   
   <br>
   <div class="text-right">
