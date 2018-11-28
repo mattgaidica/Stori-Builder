@@ -29,6 +29,7 @@ class SourcesController < ApplicationController
   end
 
   def import
+    new_source_count = 0;
     if params[:source_path].present?
       if File.file?params[:source_path]
         files = [params[:source_path]]
@@ -39,16 +40,21 @@ class SourcesController < ApplicationController
         # check for file, if exists skip it, handle re-import elsewhere
         if Source.where(html_file: html_file).empty?
           doc_info = Source.extract_doc(html_file)
-          source = Source.find_or_initialize_by(title: doc_info[:title])
-          source.authors = doc_info[:authors]
-          source.html_file = html_file
-          if source.save
-            source.annotate(doc_info)
+          @source = Source.find_or_initialize_by(title: doc_info[:title])
+          @source.authors = doc_info[:authors]
+          @source.html_file = html_file
+          if @source.save
+            new_source_count += 1;
+            @source.annotate(doc_info)
           end
         end
       end
     end
-    redirect_to sources_url
+    if new_source_count.eql? 1
+      redirect_to edit_source_path(@source)
+    else
+      redirect_to sources_url
+    end
   end
 
   # POST /sources

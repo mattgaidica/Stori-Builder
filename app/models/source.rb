@@ -35,7 +35,7 @@ class Source < ApplicationRecord
   def self.extract_doc(html_file)
     doc = Nokogiri::HTML(File.open(html_file))
 
-    regexp = /underline \[page \d\]: (?<text>.+)/
+    regexp = /underline \[page \d+\]: (?<text>.+)/
     title = Time.now.strftime("%Y%m%d_%H%M%S")
     authors = nil
     items = doc.css(".item").map {|x| x.text.match(regexp)}
@@ -46,7 +46,7 @@ class Source < ApplicationRecord
       end
     end
 
-    regexp = /highlight \[page \d\]: (?<text>.+)/
+    regexp = /highlight \[page \d+\]: (?<text>.+)/
     items = doc.css(".item").map {|x| x.text.match(regexp)}
     annotations = items.compact.map {|x| x[:text]}
 
