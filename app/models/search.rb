@@ -9,10 +9,13 @@ class Search < ApplicationRecord
         annot_count += 1;
       end
     end
+    cur_annots = results.map{|x,y| y} # gather all annotation_ids
 
     Annotation.where("body like ?", "%#{term}%").each do |annotation|
-      results[annot_count] = [annotation.source_id,annotation.id]
-      annot_count += 1;
+      unless cur_annots.index(annotation.id)
+        results[annot_count] = [annotation.source_id,annotation.id]
+        annot_count += 1;
+      end
     end
 
     return results.sort.reverse

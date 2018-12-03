@@ -3,6 +3,11 @@ class Source < ApplicationRecord
   has_many :citations, dependent: :destroy
   accepts_nested_attributes_for :annotations, :citations
 
+  before_create do
+    self.authors = self.authors.gsub(/[^0-9a-z ,\.]/i,'')
+    self.authors = self.authors.gsub(/ +?,/, ', ')
+  end
+
   def has_similar_annotation(body)
     has_similar = false
     self.annotations.each do |annotation|
