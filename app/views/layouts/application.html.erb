@@ -75,7 +75,7 @@
               <li class="nav-item">
                 <a class="nav-link <%= 'active' if current_page?(reading_path) %>" href="<%= url_for(action: 'reading',controller: 'pages') %>">
                   <span class="fe fe-bookmark"></span>
-                  Reading <% if current_page?(reading_path) %><span class="sr-only">(current)</span><% end %>
+                  Reading <span class="badge badge-<%= Citation.where(is_read: false).count > 0 ? "primary" : "secondary" %>"><%= Citation.where(is_read: false).count.to_s %></span><% if current_page?(reading_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
               </li>
               <!-- <li class="nav-item">
