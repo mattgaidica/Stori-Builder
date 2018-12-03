@@ -4,9 +4,13 @@
     <h1 class="h2">Reading List</h1>
   </div>
 
-  <% @citations.each do |citation| %>
-    <li><%= citation.cited_as %></li>
-  <% end %>
+  <%= @citations_unread.count > 0 ? render(:partial => "reading_list") : "Nothing to read." %>
 
+  <br>
+  <br>
+  <h3 class="h5">Archived</h3>
+  <% @citations_read.each do |citation| %>
+    <p class="small text-muted"><%= citation.cited_as %></p>
+  <% end %>
   <br>
 </main>

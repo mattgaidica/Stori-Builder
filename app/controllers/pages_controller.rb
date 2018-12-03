@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def reading
-    @citations = Citation.all
+    @citations_read = Citation.where(is_read: true)
+    @citations_unread = Citation.where(is_read: false)
   end
 end

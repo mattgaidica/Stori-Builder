@@ -1,0 +1,12 @@
+<%= form_tag read_citations_path, method: :put do %>
+  <% @citations_unread.each do |citation| %>
+    <div style="margin-bottom:10px;" class="form-check">
+      <%= check_box_tag "citation_ids[]", citation.id, citation.is_read, id: "form-check-#{citation.id}", class:"form-check-input" %>
+      <label style="display:inline;" class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
+        <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
+      </label>
+    </div>
+  <% end %>
+  <br>
+  <%= submit_tag "Update", class: "btn btn-outline-primary" %> 
+<% end %>

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :holds
-  resources :citations
+  resources :citations do
+    collection do
+      put :read
+    end
+  end
 
 	resources :strands do
     collection do

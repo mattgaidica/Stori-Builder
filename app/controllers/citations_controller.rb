@@ -1,6 +1,15 @@
 class CitationsController < ApplicationController
   before_action :set_citation, only: [:show, :edit, :update, :destroy]
 
+  def read
+    unless params[:citation_ids].nil?
+      params[:citation_ids].each do |citation_id|
+        Citation.find(citation_id).update(is_read: true)
+      end
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
   # GET /citations
   # GET /citations.json
   def index
@@ -59,6 +68,6 @@ class CitationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def citation_params
-      params.require(:citation).permit(:is_read, :cited_as, :source_id)
+      params.require(:citation).permit(:is_read, :cited_as, :source_id, :citation_ids)
     end
 end
