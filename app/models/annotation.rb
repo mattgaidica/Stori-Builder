@@ -10,7 +10,11 @@ class Annotation < ApplicationRecord
   end
 
   before_update do
-    self.body = Annotation.clean(self.body)
+    unless self.body.present?
+      self.destroy
+    else
+      self.body = Annotation.clean(self.body)
+    end
   end
 
   def self.clean(text)

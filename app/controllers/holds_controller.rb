@@ -29,7 +29,7 @@ class HoldsController < ApplicationController
 
     respond_to do |format|
       if @hold.save
-        format.html { redirect_back(fallback_location: root_path) }
+        format.html { redirect_back(fallback_location: root_path, anchor: "annot#{@hold.annotation_id}", status: 303) }
         format.json { render :show, status: :created, location: @hold }
       else
         format.html { redirect_back(fallback_location: root_path) }

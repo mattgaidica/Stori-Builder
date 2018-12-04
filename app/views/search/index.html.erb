@@ -22,7 +22,7 @@
       <tbody>
 
         <% @results.map{|x,y| y if x==source_id}.compact.each do |annotation_id| %>
-          <tr>
+          <tr id="annot<%= annotation_id %>">
             <td>
               <small><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small>
             </td>

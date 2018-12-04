@@ -10,7 +10,7 @@
   <br>
   <h3 class="h5">Archived</h3>
   <% @citations_read.each do |citation| %>
-    <p class="small text-muted"><%= citation.cited_as %></p>
+    <p class="small text-muted"><%= citation.cited_as %><%= link_to raw(" &rarr; "), edit_source_path(citation.source), class: "deco-none" %></p>
   <% end %>
   <br>
 </main>

@@ -5,6 +5,7 @@
       <label style="display:inline;" class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
         <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
       </label>
+      <br><small class="text-muted">&rarr; <%= link_to citation.source.title, edit_source_path(citation.source), class: "deco-none" %></small>
     </div>
   <% end %>
   <br>
