@@ -2,4 +2,4 @@
 <% @thought.strands.each_with_index do |strand,index| %><%= strand.annotation.body %>{<-<%= @thought.source_info[1][index] %>} <% end %>
 
 References<% @thought.source_info[0].uniq.each_with_index do |source_id,index| %>
-{<%= index + 1 %>->} <%= Source.find(source_id).title %><% end %>
+{<%= index + 1 %>->} <%= Source.find(source_id).title %> (<%= Source.find(source_id).authors %>)<% end %>

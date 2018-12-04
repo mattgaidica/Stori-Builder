@@ -18,7 +18,7 @@ class Annotation < ApplicationRecord
   end
 
   def self.clean(text)
-    text = text.gsub("\n"," ")
+    text = text.squish
     text = text.gsub("`","'")
     text = text.strip
     text = text.gsub("- ","")

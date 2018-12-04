@@ -7,6 +7,7 @@ class Source < ApplicationRecord
     self.authors = self.authors.gsub(/[^a-z ,\.]/i,'')
     self.authors = self.authors.gsub(/ +?,/, ', ')
     self.authors = self.authors.strip.chomp(',')
+    self.authors = self.authors.squish
   end
 
   def has_similar_annotation(body)
