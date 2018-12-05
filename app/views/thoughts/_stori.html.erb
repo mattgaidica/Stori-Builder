@@ -12,7 +12,7 @@
       <p class="card-text">
         <strong>Sources</strong><br>
         <% @thought.source_info[0].uniq.each_with_index do |source_id,index| %>
-          <mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,index + 1) %>,90%,95%)"><%= link_to edit_source_path(source_id), class: "deco-none" do %><small class="text-muted smaller"><sup><%= index + 1 %></sup><%= Source.find(source_id).title %></small></mark><% end %>
+          <small class="text-muted smaller"><mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,index + 1) %>,90%,95%)"><%= link_to edit_source_path(source_id), class: "deco-none" do %><sup><%= index + 1 %></sup><%= truncate(Source.find(source_id).title, length: 100) %></mark></small><% end %> <small class="smaller"><a class="text-muted deco-none clipboard-btn" data-clipboard-action="copy" data-clipboard-text='"<%= Source.find(source_id).title %>"' href="">copy</a></small>
           <br>
         <% end %>
       </p>
