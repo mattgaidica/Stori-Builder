@@ -20,6 +20,8 @@ class SourcesController < ApplicationController
 
   # GET /sources/1/edit
   def edit
+    @citations_read = @source.citations.where(is_read: true).order(updated_at: :desc)
+    @citations_unread = @source.citations.where(is_read: false).order(:created_at)
   end
 
   def reimport

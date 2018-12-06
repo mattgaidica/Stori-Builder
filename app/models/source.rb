@@ -4,10 +4,12 @@ class Source < ApplicationRecord
   accepts_nested_attributes_for :annotations, :citations
 
   before_create do
-    self.authors = self.authors.gsub(/[^a-z ,\.]/i,'')
-    self.authors = self.authors.gsub(/ +?,/, ', ')
-    self.authors = self.authors.strip.chomp(',')
-    self.authors = self.authors.squish
+    unless self.authors.nil?
+      self.authors = self.authors.gsub(/[^a-z ,\.]/i,'')
+      self.authors = self.authors.gsub(/ +?,/, ', ')
+      self.authors = self.authors.strip.chomp(',')
+      self.authors = self.authors.squish
+    end
   end
 
   def has_similar_annotation(body)
