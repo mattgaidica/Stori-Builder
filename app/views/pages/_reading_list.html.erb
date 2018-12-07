@@ -6,7 +6,9 @@
         <label style="display:inline;" class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
           <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
         </label>
+        <% unless citation.source_id.nil? %>
         <br><small class="text-muted">&rarr; <%= link_to citation.source.title, edit_source_path(citation.source), class: "deco-none" %></small>
+        <% end %>
       </div>
     <% end %>
     <br>
@@ -21,6 +23,6 @@
   <br>
   <h5>Archived</h5>
   <% @citations_read.each do |citation| %>
-    <p class="small text-muted"><%= citation.cited_as %><%= link_to raw(" &rarr; "), edit_source_path(citation.source), class: "deco-none" %></p>
+    <p class="small text-muted"><%= citation.cited_as %><% unless citation.source_id.nil? %><%= link_to raw(" &rarr; "), edit_source_path(citation.source), class: "deco-none" %><%end%></p>
   <% end %>
 <% end %>

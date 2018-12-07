@@ -33,7 +33,17 @@ class CitationsController < ApplicationController
   # POST /citations
   # POST /citations.json
   def create
-    redirect_back(fallback_location: root_path)
+    @citation = Citation.new(citation_params)
+
+    respond_to do |format|
+      if @citation.save
+        format.html { redirect_back(fallback_location: root_path) }
+        format.json { render :show, status: :created, location: @citation }
+      else
+        format.html { render :new }
+        format.json { render json: @citation.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /citations/1

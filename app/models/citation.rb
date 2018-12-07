@@ -1,6 +1,7 @@
 class Citation < ApplicationRecord
   require 'anystyle'
-  belongs_to :source
+  belongs_to :source, optional: true
+  default_scope { order(created_at: :desc) }
 
   def title
     parsed = AnyStyle.parse(self.cited_as)

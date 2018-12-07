@@ -78,6 +78,12 @@
                   Reading <span class="badge badge-<%= Citation.where(is_read: false).count > 0 ? "primary" : "secondary" %>"><%= Citation.where(is_read: false).count.to_s %></span><% if current_page?(reading_path) %><span class="sr-only">(current)</span><% end %>
                 </a>
               </li>
+              <li class="nav-item">
+                <a style="padding:0rem 1rem 0.75rem 1rem" class="nav-link small" href="#" data-toggle="modal" data-target="#citationModal">
+                  <em class="brand"><span class="fe fe-plus"></span>
+                  New Citation</em>
+                </a>
+              </li>
               <!-- <li class="nav-item">
                 <a class="nav-link <%= 'active' if current_page?(annotations_path) %>" href="<%= url_for(action: 'index',controller: 'annotations') %>">
                   <span class="fe fe-quote-left"></span>
@@ -123,6 +129,26 @@
         
         <%= yield %>
 
+      </div>
+    </div>
+
+    <!-- Citation Modal -->
+    <div class="modal fade" id="citationModal" tabindex="-1" role="dialog" aria-labelledby="New Citation" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <%= form_with(model: Citation.new, local: true) do |form| %>
+          <div class="modal-body">
+            <label for="newCitation">New Citation</label>
+            <div class="form-group">
+              <%= form.text_area :cited_as, :class => "form-control", :placeholder => "Cited as...",:autofocus => true, :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
 
