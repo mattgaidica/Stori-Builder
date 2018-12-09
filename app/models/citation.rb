@@ -5,7 +5,11 @@ class Citation < ApplicationRecord
 
   def title
     parsed = AnyStyle.parse(self.cited_as)
-    return parsed[0][:title][0]
+    begin
+      return parsed[0][:title][0]
+    rescue
+      return self.cited_as
+    end
   end
 
   def link
