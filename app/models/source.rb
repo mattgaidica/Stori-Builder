@@ -1,6 +1,9 @@
 class Source < ApplicationRecord
+  require 'aylien_text_api'
+
 	has_many :annotations, dependent: :destroy
   has_many :citations, dependent: :destroy
+  has_and_belongs_to_many :entities, -> { distinct }
   accepts_nested_attributes_for :annotations, :citations
 
   before_create do
@@ -9,6 +12,30 @@ class Source < ApplicationRecord
       self.authors = self.authors.gsub(/ +?,/, ', ')
       self.authors = self.authors.strip.chomp(',')
       self.authors = self.authors.squish
+    end
+  end
+
+  def aylien
+    # normalize, add title
+    all_annots = self.title + '. ' + self.annotations.map{|x| x.body}.join(" ")
+    Acronym.where(is_master: true).each do |acronym|
+      regexp = /(?!>\w)#{acronym.term}(?!\w)/
+      acronym.slaves.each do |slave|
+        all_annots = all_annots.gsub(regexp,slave.term)
+      end
+    end
+
+    AylienTextApi.configure do |config|
+      config.app_id = ENV.fetch('aylien_app_id')
+      config.app_key = ENV.fetch('aylien_api_key')
+    end
+    client = AylienTextApi::Client.new
+
+    response = client.hashtags(text: all_annots)
+    response[:hashtags].each do |hashtag|
+      content = hashtag.gsub('#','')
+      entity = Entity.find_or_create_by(content: content)
+      self.entities << entity unless self.entities.include?(entity)
     end
   end
 

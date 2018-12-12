@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_28_200048) do
+ActiveRecord::Schema.define(version: 2018_12_11_231630) do
+
+  create_table "acronyms", force: :cascade do |t|
+    t.string "term"
+    t.boolean "is_master", default: false
+    t.integer "like_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["term"], name: "index_acronyms_on_term", unique: true
+  end
 
   create_table "annotations", force: :cascade do |t|
     t.text "body"
@@ -27,6 +36,19 @@ ActiveRecord::Schema.define(version: 2018_11_28_200048) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["source_id"], name: "index_citations_on_source_id"
+  end
+
+  create_table "entities", force: :cascade do |t|
+    t.string "content"
+    t.string "has_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entities_sources", id: false, force: :cascade do |t|
+    t.integer "entity_id", null: false
+    t.integer "source_id", null: false
+    t.index ["entity_id", "source_id"], name: "index_entities_sources_on_entity_id_and_source_id"
   end
 
   create_table "holds", force: :cascade do |t|

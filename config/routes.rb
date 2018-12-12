@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :entities
+  resources :acronyms
   resources :holds
   resources :citations do
     collection do
@@ -29,6 +31,8 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
   get '/reading', to: 'pages#reading', as: 'reading'
+  get '/grakn', to: 'pages#grakn', as: 'grakn'
+  get '/aylien', to: 'pages#aylien', as: 'aylien'
 
   root to: 'sources#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

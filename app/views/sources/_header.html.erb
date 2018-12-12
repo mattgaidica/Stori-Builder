@@ -1,6 +1,9 @@
 <h1 class="h4 edit-title" contentEditable="true"><%= @source.title %></h1>
 <h2 class="h6 edit-authors" contentEditable="true"><%= @source.authors %></h2>
-<em class="smaller text-muted"><%= @source.html_file %></em>
+<% unless @source.html_file.nil? %><em class="smaller text-muted"><%= @source.html_file %></em><br><% end %>
+<% @source.entities.each do |entity| %>
+  <span class="badge badge-dark">#<%= entity.content %></span>
+<% end %>
 <!-- <div class="btn-toolbar mb-2 mb-md-0">
   <div class="btn-group mr-2">
     <a href="#" class="btn btn-sm btn-outline-secondary clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'source_plain', source: @source %>">Copy</a>

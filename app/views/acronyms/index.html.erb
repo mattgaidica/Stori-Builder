@@ -1,0 +1,38 @@
+<% @title="Acronyms" %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <%= render 'layouts/notice', notice: @notice %>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Acronyms</h1>
+  </div>
+  <%= link_to 'New Acronym', new_acronym_path %>
+  <br>
+  <br>
+  <table class="table table-bordered table-dark table-hover">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>term</th>
+        <th>is_master</th>
+        <th>like_id</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @acronyms.each do |acronym| %>
+        <tr>
+          <td><%= acronym.id %></td>
+          <td><%= acronym.term %></td>
+          <td><%= acronym.is_master %></td>
+          <td><%= acronym.like_id %></td>
+          <td><%= link_to 'Show', acronym %></td>
+          <td><%= link_to 'Edit', edit_acronym_path(acronym) %></td>
+          <td><%= link_to 'Destroy', acronym, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+</main>
+

@@ -1,4 +1,14 @@
 class PagesController < ApplicationController
+  def grakn
+  end
+
+  def aylien
+    Source.all.each do |source|
+      source.aylien
+    end
+    redirect_to grakn_url
+  end
+
   def dashboard
   end
 

@@ -1,0 +1,201 @@
+define
+
+source sub entity
+  has title
+  has authors
+  plays data;
+
+annotation sub source
+  has body;
+
+keyword sub entity
+  has hashtag
+  plays topic;
+
+title sub attribute datatype string;
+authors sub attribute datatype string;
+body sub attribute datatype string;
+hashtag sub attribute datatype string;
+
+connection sub relationship
+  relates data
+  relates topic;
+
+# DATA
+
+insert
+
+$keyword3 isa keyword has hashtag "Thalamus";
+$keyword4 isa keyword has hashtag "GlobusPallidus";
+$keyword5 isa keyword has hashtag "BasalGanglia";
+$keyword6 isa keyword has hashtag "MediumSpinyNeuron";
+$keyword7 isa keyword has hashtag "Neuron";
+$keyword8 isa keyword has hashtag "Disinhibition";
+$keyword9 isa keyword has hashtag "Calcium";
+$keyword10 isa keyword has hashtag "CerebralCortex";
+$keyword11 isa keyword has hashtag "ParkinsonsDisease";
+$keyword12 isa keyword has hashtag "Parkinsonism";
+$keyword13 isa keyword has hashtag "StandardModel";
+$keyword14 isa keyword has hashtag "SubstantiaNigra";
+$keyword15 isa keyword has hashtag "Walking";
+$keyword16 isa keyword has hashtag "Mouse";
+$keyword17 isa keyword has hashtag "Hypokinesia";
+$keyword18 isa keyword has hashtag "Constellation";
+$keyword19 isa keyword has hashtag "Frequency";
+$keyword20 isa keyword has hashtag "AfferentNerveFiber";
+$keyword21 isa keyword has hashtag "Brain";
+$keyword22 isa keyword has hashtag "DeepBrainStimulation";
+$keyword23 isa keyword has hashtag "Rotation";
+$keyword24 isa keyword has hashtag "AtomicNucleus";
+$keyword25 isa keyword has hashtag "Cerebellum";
+$keyword26 isa keyword has hashtag "GlutamicAcid";
+$keyword27 isa keyword has hashtag "CellNucleus";
+$keyword28 isa keyword has hashtag "Dendrite";
+$keyword29 isa keyword has hashtag "PyramidalCell";
+$keyword30 isa keyword has hashtag "Synapse";
+$keyword31 isa keyword has hashtag "AssociativeProperty";
+$keyword32 isa keyword has hashtag "MotorCortex";
+$keyword33 isa keyword has hashtag "Primate";
+$keyword34 isa keyword has hashtag "GammaAminobutyricAcid";
+$keyword35 isa keyword has hashtag "Integrator";
+$keyword36 isa keyword has hashtag "ActionSelection";
+$keyword37 isa keyword has hashtag "Habit";
+$keyword38 isa keyword has hashtag "Proprioception";
+$keyword39 isa keyword has hashtag "ApparentMagnitude";
+$keyword40 isa keyword has hashtag "AnatomicalTermsOfLocation";
+$keyword41 isa keyword has hashtag "Pharynx";
+$keyword42 isa keyword has hashtag "SupplementaryMotorArea";
+$keyword43 isa keyword has hashtag "Noise";
+$keyword44 isa keyword has hashtag "Dyskinesia";
+$keyword45 isa keyword has hashtag "LDOPA";
+$keyword46 isa keyword has hashtag "Paradox";
+$keyword47 isa keyword has hashtag "Muscle";
+$keyword48 isa keyword has hashtag "Patter";
+$keyword49 isa keyword has hashtag "Depolarization";
+$keyword50 isa keyword has hashtag "Dopamine";
+$keyword51 isa keyword has hashtag "Pathology";
+$keyword52 isa keyword has hashtag "Striatum";
+$keyword53 isa keyword has hashtag "EfferentNerveFiber";
+$keyword54 isa keyword has hashtag "Glutamatergic";
+$keyword55 isa keyword has hashtag "Tonic";
+$keyword56 isa keyword has hashtag "Ficus";
+$keyword57 isa keyword has hashtag "FeedForward";
+$keyword58 isa keyword has hashtag "SomatosensorySystem";
+$keyword59 isa keyword has hashtag "Curvature";
+$keyword60 isa keyword has hashtag "PrimaryMotorCortex";
+$keyword61 isa keyword has hashtag "DorsalRootGanglion";
+$keyword62 isa keyword has hashtag "MotorSystem";
+$keyword63 isa keyword has hashtag "Velocity";
+$keyword64 isa keyword has hashtag "MentalChronometry";
+$keyword65 isa keyword has hashtag "Basal";
+$keyword66 isa keyword has hashtag "Kinematics";
+$keyword67 isa keyword has hashtag "Amplitude";
+$keyword68 isa keyword has hashtag "Cognition";
+$keyword69 isa keyword has hashtag "Electromyography";
+$keyword70 isa keyword has hashtag "MotorControl";
+$keyword71 isa keyword has hashtag "ErrorDetectionAndCorrection";
+$keyword72 isa keyword has hashtag "Acceleration";
+$keyword73 isa keyword has hashtag "Energy";
+$keyword74 isa keyword has hashtag "HebbianTheory";
+$keyword75 isa keyword has hashtag "ChemicalSynapse";
+$keyword76 isa keyword has hashtag "Sensor";
+$keyword77 isa keyword has hashtag "Coupling";
+$keyword78 isa keyword has hashtag "Hertz";
+$keyword79 isa keyword has hashtag "Synchronization";
+$keyword80 isa keyword has hashtag "Summit";
+$keyword81 isa keyword has hashtag "TheBetaBand";
+$keyword82 isa keyword has hashtag "FrontalLobe";
+$keyword83 isa keyword has hashtag "PrefrontalCortex";
+$keyword84 isa keyword has hashtag "AnteriorCingulateCortex";
+$keyword85 isa keyword has hashtag "Discrimination";
+$keyword86 isa keyword has hashtag "Receptor";
+$keyword87 isa keyword has hashtag "Optogenetics";
+$keyword88 isa keyword has hashtag "SoundRecordingAndReproduction";
+$keyword89 isa keyword has hashtag "Virus";
+$keyword90 isa keyword has hashtag "Channelrhodopsin";
+$keyword91 isa keyword has hashtag "ActionPotential";
+$keyword92 isa keyword has hashtag "Latency";
+$keyword93 isa keyword has hashtag "Memory";
+$keyword94 isa keyword has hashtag "Oscillation";
+$keyword95 isa keyword has hashtag "MexicanCession";
+$keyword96 isa keyword has hashtag "Emergence";
+$keyword97 isa keyword has hashtag "SpinalCord";
+$keyword98 isa keyword has hashtag "PrimarySomatosensoryCortex";
+$keyword99 isa keyword has hashtag "Electroencephalography";
+$keyword100 isa keyword has hashtag "Magnitude";
+$keyword101 isa keyword has hashtag "GammaWave";
+$keyword102 isa keyword has hashtag "Sleep";
+$keyword103 isa keyword has hashtag "Hippocampus";
+$keyword104 isa keyword has hashtag "Neocortex";
+$keyword105 isa keyword has hashtag "PhaseModulation";
+$keyword106 isa keyword has hashtag "ThetaWave";
+$keyword107 isa keyword has hashtag "Entrainment";
+$keyword108 isa keyword has hashtag "MultiplicativeInverse";
+$keyword109 isa keyword has hashtag "Scalp";
+$keyword110 isa keyword has hashtag "InterplayEntertainment";
+$keyword111 isa keyword has hashtag "FrequencyBand";
+$keyword112 isa keyword has hashtag "Mode";
+$keyword113 isa keyword has hashtag "Hyperpolarization";
+$keyword114 isa keyword has hashtag "Overproduction";
+$keyword115 isa keyword has hashtag "NeuralOscillation";
+$keyword116 isa keyword has hashtag "LateralInhibition";
+$keyword117 isa keyword has hashtag "Retina";
+$keyword118 isa keyword has hashtag "EpisodicMemory";
+$keyword119 isa keyword has hashtag "ProceduralMemory";
+$keyword120 isa keyword has hashtag "Phase";
+$keyword121 isa keyword has hashtag "Ganglion";
+$keyword122 isa keyword has hashtag "Forebrain";
+$keyword123 isa keyword has hashtag "Spindle";
+$keyword124 isa keyword has hashtag "LimbicSystem";
+$keyword125 isa keyword has hashtag "Blockade";
+$keyword126 isa keyword has hashtag "Probability";
+$keyword127 isa keyword has hashtag "Stimulus";
+$keyword128 isa keyword has hashtag "Recall";
+$keyword129 isa keyword has hashtag "LowfrequencyOscillation";
+$keyword130 isa keyword has hashtag "Protein–proteinInteraction";
+$keyword131 isa keyword has hashtag "Schizophrenia";
+$keyword132 isa keyword has hashtag "Neuropsychiatry";
+$keyword133 isa keyword has hashtag "Epilepsy";
+$keyword134 isa keyword has hashtag "CellMembrane";
+$keyword135 isa keyword has hashtag "Broadband";
+$keyword136 isa keyword has hashtag "Narrowband";
+$keyword137 isa keyword has hashtag "Modulation";
+$keyword138 isa keyword has hashtag "Variance";
+$keyword139 isa keyword has hashtag "TimeSeries";
+$keyword140 isa keyword has hashtag "EventrelatedPotential";
+$keyword141 isa keyword has hashtag "VisualCortex";
+$keyword142 isa keyword has hashtag "SensoryNervousSystem";
+$keyword143 isa keyword has hashtag "Sound";
+$keyword144 isa keyword has hashtag "MembranePotential";
+$keyword145 isa keyword has hashtag "PhaseAngle";
+$keyword146 isa keyword has hashtag "HouseholdIncomeInTheUnitedStates";
+$keyword147 isa keyword has hashtag "CognitiveLoad";
+$keyword148 isa keyword has hashtag "Saccade";
+$keyword149 isa keyword has hashtag "Newsome";
+$keyword150 isa keyword has hashtag "RateFunction";
+$keyword151 isa keyword has hashtag "MusicalTuning";
+$keyword152 isa keyword has hashtag "Bridge";
+$keyword153 isa keyword has hashtag "Electrode";
+$keyword154 isa keyword has hashtag "Micrometre";
+$keyword155 isa keyword has hashtag "Vertebra";
+$keyword156 isa keyword has hashtag "SNR";
+$keyword157 isa keyword has hashtag "SignaltonoiseRatio";
+$keyword158 isa keyword has hashtag "Ageing";
+$keyword159 isa keyword has hashtag "Gait";
+$keyword160 isa keyword has hashtag "Dopaminergic";
+$keyword161 isa keyword has hashtag "Dementia";
+$keyword162 isa keyword has hashtag "Disability";
+$keyword163 isa keyword has hashtag "ExecutiveFunctions";
+$keyword164 isa keyword has hashtag "CorrelationAndDependence";
+$keyword165 isa keyword has hashtag "AlzheimersDisease";
+$keyword166 isa keyword has hashtag "Prodrug";
+$keyword167 isa keyword has hashtag "CircumstantialEvidence";
+$keyword168 isa keyword has hashtag "Dystonia";
+$keyword169 isa keyword has hashtag "Deconstruction";
+$keyword170 isa keyword has hashtag "Discharge";
+$keyword171 isa keyword has hashtag "Neuroplasticity";
+$keyword172 isa keyword has hashtag "Maze";
+$keyword173 isa keyword has hashtag "Neurology";
+$keyword174 isa keyword has hashtag "Syndrome";
+$keyword175 isa keyword has hashtag "Magnetoencephalography";
+$keyword176 isa keyword has hashtag "LocalField";
