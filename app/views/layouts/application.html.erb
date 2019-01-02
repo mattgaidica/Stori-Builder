@@ -99,7 +99,7 @@
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Activity</h6>
-            <% Thought.order("updated_at DESC").limit(5).each do |thought| %>
+            <% Thought.order("updated_at DESC").limit(500).each do |thought| %>
               <a href="<%= url_for thought %>" class="btn btn-sm btn-block btn-light">
                 <small><%= thought.name %> <span class="badge badge-light"> <%= thought.strands.count %></span></small>
               </a>
