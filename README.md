@@ -7,6 +7,8 @@ use DB Browser
 rake db:migrate:down VERSION=20100905201547
 rails destroy scaffold MyFoo
 
+re-installed using: https://gorails.com/setup/osx/10.14-mojave
+
 Grakn
 ---
 Grakn lives here: /Users/mattgaidica/Documents/Software/grakn
