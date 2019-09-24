@@ -1,13 +1,19 @@
->> rails new Stori
->> cd Stori
->> bundle install
->> rails s
+Stori
+---
+- User has libraries, library has sources/thoughts/holds/entities
+- Source has annotations/citations
+- Thought has strands, strands relate thought and annotation (are positioned)
+- Hold has annotation
 
-use DB Browser
+**Open**
+- What are entities? I think these are 'tags'. Source has entities through entities_sources.
+
+Rails
+---
+re-installed using: https://gorails.com/setup/osx/10.14-mojave
+
 rake db:migrate:down VERSION=20100905201547
 rails destroy scaffold MyFoo
-
-re-installed using: https://gorails.com/setup/osx/10.14-mojave
 
 Grakn
 ---
