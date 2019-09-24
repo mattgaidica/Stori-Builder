@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2018_12_11_231630) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "acronyms", force: :cascade do |t|
     t.string "term"
     t.boolean "is_master", default: false
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
 
   create_table "annotations", force: :cascade do |t|
     t.text "body"
-    t.integer "source_id"
+    t.bigint "source_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["source_id"], name: "index_annotations_on_source_id"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
   create_table "citations", force: :cascade do |t|
     t.string "cited_as"
     t.boolean "is_read", default: false
-    t.integer "source_id"
+    t.bigint "source_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["source_id"], name: "index_citations_on_source_id"
@@ -46,13 +49,13 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
   end
 
   create_table "entities_sources", id: false, force: :cascade do |t|
-    t.integer "entity_id", null: false
-    t.integer "source_id", null: false
+    t.bigint "entity_id", null: false
+    t.bigint "source_id", null: false
     t.index ["entity_id", "source_id"], name: "index_entities_sources_on_entity_id_and_source_id"
   end
 
   create_table "holds", force: :cascade do |t|
-    t.integer "annotation_id"
+    t.bigint "annotation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["annotation_id"], name: "index_holds_on_annotation_id"
@@ -69,8 +72,8 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
 
   create_table "strands", force: :cascade do |t|
     t.integer "position"
-    t.integer "thought_id"
-    t.integer "annotation_id"
+    t.bigint "thought_id"
+    t.bigint "annotation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["annotation_id", "thought_id"], name: "index_strands_on_annotation_id_and_thought_id", unique: true
@@ -84,4 +87,5 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "annotations", "sources"
 end
