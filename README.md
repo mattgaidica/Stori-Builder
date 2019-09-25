@@ -12,7 +12,9 @@ Stori
 
 Rails
 ---
-re-installed using: https://gorails.com/setup/osx/10.14-mojave
+[Re-installed using] (https://gorails.com/setup/osx/10.14-mojave)
+
+[Credentials Info] (https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336)
 
 ```
 > rake db:migrate:down VERSION=20100905201547
