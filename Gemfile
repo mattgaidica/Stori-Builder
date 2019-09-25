@@ -80,3 +80,4 @@ gem 'aylien_text_api'
 gem 'figaro'
 gem 'puma_worker_killer'
 gem 'barnes'
+gem "aws-sdk-s3", require: false
