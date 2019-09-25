@@ -12,6 +12,7 @@ module Stori
     config.load_defaults 5.2
     # config.autoload_paths << Rails.root.join('lib', 'modules')
     config.eager_load_paths << Rails.root.join('lib','modules')
+    config.serve_static_assets = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
