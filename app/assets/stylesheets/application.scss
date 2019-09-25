@@ -12,9 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ @import 'feathericon';
  */
+ 
+*= require feathericon
 @import 'bootstrap';
-@import 'feathericon';
 
 .btn-light {
   background-color: #eeeeee;
