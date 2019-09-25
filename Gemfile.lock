@@ -61,6 +61,9 @@ GEM
       execjs
     autosize (2.4.0.0)
     aylien_text_api (0.8.0)
+    barnes (0.0.7)
+      multi_json (~> 1)
+      statsd-ruby (~> 1.1)
     bibtex-ruby (4.4.7)
       latex-decode (~> 0.0)
     bindex (0.5.0)
@@ -103,6 +106,8 @@ GEM
     ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
+    get_process_mem (0.2.4)
+      ffi (~> 1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashery (2.1.2)
@@ -158,6 +163,9 @@ GEM
     popper_js (1.14.3)
     public_suffix (3.0.3)
     puma (3.12.0)
+    puma_worker_killer (0.1.1)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 5)
     rack (2.0.6)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -221,6 +229,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statsd-ruby (1.4.0)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -253,6 +262,7 @@ DEPENDENCIES
   anystyle
   autosize
   aylien_text_api
+  barnes
   bootsnap (>= 1.1.0)
   bootstrap
   byebug
@@ -272,6 +282,7 @@ DEPENDENCIES
   pdf-reader
   pg
   puma (~> 3.11)
+  puma_worker_killer
   rails (~> 5.2.1)
   rails-jquery-ui-sortable
   rake (~> 12.3.2)
