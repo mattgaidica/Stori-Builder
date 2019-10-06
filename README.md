@@ -23,14 +23,18 @@ Rails
 
 Grakn
 ---
-Grakn lives here: /Users/mattgaidica/Documents/Software/grakn
+
+If `Process exited with code '0': 'Uncaught exception at thread [Failed to bind]` then kill all java PIDs.
 
 ```
-> graql console -k stori -f /Users/mattgaidica/Documents/Software/Stori/grakn/sources_model.gql
+grakn console -k stori -f /Users/matt/Documents/Software/Stori-Builder/grakn/sources_schema.gql
+grakn console -k stori -f /Users/matt/Documents/Software/Stori-Builder/grakn/sources_data.gql
 
-> graql console -k stori
-> clean
-> confirm
+match $conn (topic: $x, data: $y) isa connection; get; offset 0; limit 30;
+
+graql console -k stori
+clean
+confirm
 ```
 
 To delete:

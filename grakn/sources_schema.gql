@@ -1,0 +1,22 @@
+define
+
+source sub entity,
+  has title,
+  has authors,
+  plays data;
+
+annotation sub source,
+  has body;
+
+keyword sub entity,
+  has hashtag,
+  plays topic;
+
+title sub attribute, datatype string;
+authors sub attribute, datatype string;
+body sub attribute, datatype string;
+hashtag sub attribute, datatype string;
+
+connection sub relation,
+  relates data,
+  relates topic;

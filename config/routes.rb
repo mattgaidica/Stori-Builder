@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :thoughts
   patch '/thoughts/:id/transfer', to: 'thoughts#transfer', as: 'transfer'
+  patch '/application', to: 'application#hidesource', as: 'hidesource'
 
   resources :annotations
   get '/search/:term', to: 'search#index', as: 'search'

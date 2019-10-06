@@ -6,7 +6,7 @@ class Annotation < ApplicationRecord
   default_scope { order(created_at: :asc) }
 
   before_create do
-    self.body = Annotation.clean(self.body)
+    self.body = Annotation.clean(self.body_source)
   end
 
   before_update do

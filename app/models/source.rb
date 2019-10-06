@@ -15,34 +15,36 @@ class Source < ApplicationRecord
     end
   end
 
-  def aylien
-    # normalize, add title
-    all_annots = self.title + '. ' + self.annotations.map{|x| x.body}.join(" ")
-    Acronym.where(is_master: true).each do |acronym|
-      regexp = /(?!>\w)#{acronym.term}(?!\w)/
-      acronym.slaves.each do |slave|
-        all_annots = all_annots.gsub(regexp,slave.term)
-      end
-    end
+  # def aylien
+  #   # normalize, add title
+  #   all_annots = self.title + '. ' + self.annotations.map{|x| x.body}.join(" ")
+  #   Acronym.where(is_master: true).each do |acronym|
+  #     regexp = /(?!>\w)#{acronym.term}(?!\w)/
+  #     acronym.slaves.each do |slave|
+  #       all_annots = all_annots.gsub(regexp,slave.term)
+  #     end
+  #   end
 
-    AylienTextApi.configure do |config|
-      config.app_id = ENV.fetch('aylien_app_id')
-      config.app_key = ENV.fetch('aylien_api_key')
-    end
-    client = AylienTextApi::Client.new
+  #   AylienTextApi.configure do |config|
+  #     config.app_id = ENV.fetch('aylien_app_id')
+  #     config.app_key = ENV.fetch('aylien_api_key')
+  #   end
+  #   client = AylienTextApi::Client.new
 
-    response = client.hashtags(text: all_annots)
-    response[:hashtags].each do |hashtag|
-      content = hashtag.gsub('#','')
-      entity = Entity.find_or_create_by(content: content)
-      self.entities << entity unless self.entities.include?(entity)
-    end
-  end
+  #   response = client.hashtags(text: all_annots)
+  #   response[:hashtags].each do |hashtag|
+  #     content = hashtag.gsub('#','')
+  #     entity = Entity.find_or_create_by(content: content)
+  #     self.entities << entity unless self.entities.include?(entity)
+  #   end
+  # end
 
   def has_similar_annotation(body)
     has_similar = false
     self.annotations.each do |annotation|
-      has_similar = true if annotation.body.similar(body) > 85
+      unless annotation.body_source.nil?
+        has_similar = true if annotation.body_source.similar(body) > 85
+      end
     end
     return has_similar
   end
@@ -58,7 +60,7 @@ class Source < ApplicationRecord
   def annotate(doc_info)
     doc_info[:annotations].each do |body|
       unless self.has_similar_annotation(body)
-        annotation = Annotation.create(source_id: self.id, body: body)
+        annotation = Annotation.create(source_id: self.id, body_source: body, body: body)
       end
     end
 

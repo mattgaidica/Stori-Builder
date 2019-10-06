@@ -59,5 +59,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.default_source_path = "/Users/matt/Dropbox/Library/annotations"
+  config.default_source_path = "/Users/matt/Documents/Software/Stori-Builder/grakn/annotations"
 end

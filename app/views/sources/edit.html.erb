@@ -16,9 +16,20 @@
   <%= form.hidden_field :authors %>
   <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
     <div class="form-group" style="margin-bottom:0.5rem">
+      <% unless annotation_fields.object.body_source.nil? %>
+        <div class="smaller text-muted"><%= annotation_fields.object.body_source %></div>
+      <% end %>
       <%= annotation_fields.text_area :body, class: "form-control" %>
-      <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
+  <div style="margin-bottom: 10px;" class="container">
+    <div class="row">
+      <div class="col-sm">
+        <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %><% unless Hold.where(annotation_id: annotation_fields.object.id).present? %> | <%= link_to 'Hold', holds_path(:annotation_id => annotation_fields.object), method: :post, :class => "little-hold"%><% end %></span>
+      </div>
+      <div class="col-sm text-right">
+        <span class="tiny" style="line-height:0;text-align:right;"><%= link_to raw('Filter'), hidesource_path(@source), method: :patch, :class => "" %></span>
+      </div>
     </div>
+  </div>
   <% end %>
   
   <br>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_231630) do
+ActiveRecord::Schema.define(version: 2019_10_06_172321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2018_12_11_231630) do
     t.bigint "source_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "body_source"
+    t.boolean "is_summary"
     t.index ["source_id"], name: "index_annotations_on_source_id"
   end
 
