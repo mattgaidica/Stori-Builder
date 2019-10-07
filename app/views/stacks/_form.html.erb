@@ -1,0 +1,32 @@
+<%= form_with(model: stack, local: true) do |form| %>
+  <% if stack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stack.errors.count, "error") %> prohibited this stack from being saved:</h2>
+
+      <ul>
+      <% stack.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pref_annotations_showsource %>
+    <%= form.check_box :pref_annotations_showsource %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pref_settings_importpath %>
+    <%= form.text_field :pref_settings_importpath %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

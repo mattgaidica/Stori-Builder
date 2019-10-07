@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :stacks
   resources :entities
   resources :acronyms
   resources :holds

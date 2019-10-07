@@ -24,8 +24,9 @@ class AnnotationsController < ApplicationController
   # POST /annotations
   # POST /annotations.json
   def create
-    annotation_params[:body].split('* ').reject {|x| x.empty?}.each do |body|
-      Annotation.create(source_id: annotation_params[:source_id], body: body)
+    # to create multiple annotations using * as bullet points
+    annotation_params[:body_source].split('* ').reject {|x| x.empty?}.each do |body_source|
+      Annotation.create(source_id: annotation_params[:source_id], body_source: body_source)
     end
 
     redirect_back(fallback_location: root_path)

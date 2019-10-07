@@ -203,7 +203,7 @@
           <div class="modal-body">
             <label for="sourceImportPath">Source Path</label>
             <div class="form-group">
-              <%= form.text_field :source_path, :class => "form-control form-control-dark w-100", :value => Rails.application.config.default_source_path, 'aria-label' => 'Source path', :autocomplete => :off %>
+              <%= form.text_field :source_path, :class => "form-control form-control-dark w-100", :value => Stack.first.pref_settings_importpath, 'aria-label' => 'Source path', :autocomplete => :off %>
             </div>
           </div>
           <div class="modal-footer">

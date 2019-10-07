@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_06_172321) do
+ActiveRecord::Schema.define(version: 2019_10_07_125136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,14 @@ ActiveRecord::Schema.define(version: 2019_10_06_172321) do
     t.string "html_file"
     t.string "pdf_link"
     t.string "authors"
+  end
+
+  create_table "stacks", force: :cascade do |t|
+    t.string "name"
+    t.boolean "pref_annotations_showsource", default: false, null: false
+    t.string "pref_settings_importpath"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "strands", force: :cascade do |t|

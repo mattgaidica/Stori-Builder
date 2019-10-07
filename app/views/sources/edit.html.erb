@@ -16,7 +16,7 @@
   <%= form.hidden_field :authors %>
   <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
     <div class="form-group" style="margin-bottom:0.5rem">
-      <% unless annotation_fields.object.body_source.nil? %>
+      <% if !annotation_fields.object.body_source.nil? && Stack.first.pref_annotations_showsource %>
         <div class="smaller text-muted"><%= annotation_fields.object.body_source %></div>
       <% end %>
       <%= annotation_fields.text_area :body, class: "form-control" %>
@@ -63,7 +63,7 @@
       <%= form_with(model: Annotation.new, local: true) do |form| %>
       <div class="modal-body">
         <div class="form-group">
-          <%= form.text_area :body, :class => "form-control", :placeholder => "Annotation body...",:autofocus => true, :autocomplete => :off, rows: "6" %>
+          <%= form.text_area :body_source, :class => "form-control", :placeholder => "Annotation body...",:autofocus => true, :autocomplete => :off, rows: "6" %>
           <%= form.hidden_field :source_id, :value => @source.id %>
         </div>
       </div>

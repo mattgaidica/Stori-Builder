@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stack.name %>
+</p>
+
+<p>
+  <strong>Pref annotations showsource:</strong>
+  <%= @stack.pref_annotations_showsource %>
+</p>
+
+<p>
+  <strong>Pref settings importpath:</strong>
+  <%= @stack.pref_settings_importpath %>
+</p>
+
+<%= link_to 'Edit', edit_stack_path(@stack) %> |
+<%= link_to 'Back', stacks_path %>
