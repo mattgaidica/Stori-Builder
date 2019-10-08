@@ -64,7 +64,6 @@ end
 
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'feathericon-sass'
 gem 'jquery-ui-rails'
 gem 'rails-jquery-ui-sortable'
 gem 'acts_as_list'
