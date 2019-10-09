@@ -1,38 +1,40 @@
 <% @title="Search" %>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-  <%= render 'layouts/notice', notice: @notice %>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Results</h1>
+<%= render 'layouts/notice', notice: @notice %>
+<% unless @results.any? %>
+  <div class="card mb-3 bg-light">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <h3 class="mb-0">No Results</h3>
+        </div>
+      </div>
+    </div>
   </div>
+<% end %>
 
-  <% unless @results.any? %>
-    <p><em>No search results.</em></p>
-  <% end %>
+<% @results.map{|x,y|x}.uniq.each do |source_id| %>
+  <div class="card mb-3">
+    <%= link_to edit_source_path(Source.find(source_id)), :class => "" do %>
+      <div class="card-header bg-light">
+        <h5 class="mb-0"><%= highlight(Source.find(source_id).title,@search_term) %></h5>
+        <span><%= highlight(Source.find(source_id).authors,@search_term) %></span>
+      </div>
+    <% end %>
 
-  <% @results.map{|x,y|x}.uniq.each do |source_id| %>
-    <table class="table table-sm">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">
-            <%= link_to edit_source_path(Source.find(source_id)), :class => 'deco-none' do %><%= highlight(Source.find(source_id).title,@search_term) %><% end %>
-            <br>
-            <small><%= highlight(Source.find(source_id).authors,@search_term) %></small>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <% @results.map{|x,y| y if x==source_id}.compact.sort.each do |annotation_id| %>
-          <tr id="annot<%= annotation_id %>">
-            <td>
-              <small><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %><%= highlight(Annotation.find(annotation_id).body,@search_term) %></small>
-            </td>
-          </tr>
+    <div class="card-body border-top">
+      <% @results.map{|x,y| y if x==source_id}.compact.sort.each do |annotation_id| %>
+          <div class="media">
+            <a href="#!">
+              <div class="avatar avatar-2xl">
+                <div class="avatar-name rounded-circle"><span><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'H', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %></span></div>
+              </div>
+            </a>
+            <div class="media-body position-relative pl-3">
+              <p class="fs--1"><%= highlight(Annotation.find(annotation_id).body,@search_term) %></p>
+              <hr class="border-dashed border-bottom-0">
+            </div>
+          </div>
         <% end %>
-
-      </tbody>
-    </table>
-  <% end %>
-
-  <br>
-</main>
+    </div>
+  </div>
+<% end %>
