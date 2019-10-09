@@ -19,7 +19,7 @@
 
   <body>
     <main class="main" id="top">
-       <div class="container">
+       <div class="container-fluid">
         <nav class="navbar navbar-vertical navbar-expand-xl navbar-light navbar-glass">
           <a class="navbar-brand text-left" href="../index.html">
             <div class="d-flex align-items-center py-3"><span class="text-sans-serif">Stori</span>
@@ -68,6 +68,32 @@
                 </ul>
               </li>
             </ul>
+
+            <hr class="border-300 my-2">
+
+            <ul class="navbar-nav flex-column">
+              <li class="nav-item">
+                <div class="d-flex align-items-center">
+                  <span class="nav-link-icon"><span class="fas fa-hand-holding-heart"></span></span>
+                  <span>Holds</span>
+                    <% if defined? @thought and @thought.id.present? and Hold.all.present? %>
+                      <%= link_to raw("<span class='badge badge-pill ml-2 badge-soft-primary'>#{ Hold.all.count } <span class='fas fa-chevron-right'></span><span class='fas fa-chevron-right'></span><span class='fas fa-chevron-right'></span></span>"), transfer_path(@thought), method: :patch %>
+                    <% else %>
+                      <span class="badge badge-pill ml-2 badge-soft-primary"><%= Hold.all.count %> 
+                      </span>
+                    <% end %>
+                  </div>
+                </li>
+              </ul>
+              <ul class="navbar-nav flex-column">
+                <% Hold.all.each do |hold| %>
+                  <li class="nav-item">
+                    <%= link_to(hold_path(hold), method: :delete, :class => "rm-hold-caption") do %>
+                      <p class="hold-caption"><small><% if defined? @thought and @thought.id.present? and @thought.annotations.where(id: hold.annotation_id).present? %>✓ <% else %>&bull; <% end %><%= hold.annotation.body %></small></p>
+                      <% end %>
+                    <% end %>
+                </li>
+              </ul>
           </div>
         </nav>
 
@@ -93,7 +119,7 @@
                 </li>
               </ul>
               <ul class="navbar-nav align-items-center ml-auto">
-                <li class="nav-item dropdown"><a class="nav-link px-0" href="../e-commerce/shopping-cart.html"><span class="fas fa-cart-plus fs-4" data-fa-transform="shrink-7"></span></a></li>
+                <li class="nav-item dropdown"><a class="nav-link px-0" href="../e-commerce/shopping-cart.html"><span class="fas fa-bell fs-4" data-fa-transform="shrink-7"></span></a></li>
 
                 <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-2xl">
@@ -124,8 +150,76 @@
 
       </div>
     </main>
-
-  
   </body>
+
+  <script>
+    $(".list-group-item").hover(
+      function() {
+        thisid = $( this ).attr('id');
+        $('#' + thisid + ' small').addClass( "font-weight-bold" );
+        $('#slave_' + thisid).addClass( "font-weight-bold" );
+      }, function() {
+        thisid = $( this ).attr('id');
+        $('#' + thisid + ' small').removeClass( "font-weight-bold" );
+        $('#slave_' + thisid).removeClass( "font-weight-bold" );
+      }
+    );
+
+    var editTitle = $('.edit-title').html();
+    $('.edit-title').blur(function() {
+      if (editTitle!=$(this).html()){
+          editTitle = $(this).html();
+          $('#source_title').val(editTitle);
+      }
+    });
+    var editAuthors = $('.edit-authors').html();
+    $('.edit-authors').blur(function() {
+      if (editAuthors!=$(this).html()){
+          editAuthors = $(this).html();
+          $('#source_authors').val(editAuthors);
+      }
+    });
+
+    $('textarea').each(function(){
+      autosize(this);
+    }).on('autosize:resized', function(){
+      console.log('textarea height updated');
+    });
+
+    // Tooltip
+    $('.clipboard-btn').tooltip({
+      trigger: 'click',
+      placement: 'bottom'
+    });
+
+    function setTooltip(btn, message) {
+      $(btn).tooltip('show')
+        .attr('data-original-title', message)
+        .tooltip('show');
+    }
+
+    function hideTooltip(btn) {
+      setTimeout(function() {
+        $(btn).tooltip('hide');
+      }, 1000);
+    }
+
+    // Clipboard
+    var clipboard = new Clipboard('.clipboard-btn');
+
+    clipboard.on('success', function(e) {
+      setTooltip(e.trigger, 'Copied!');
+      hideTooltip(e.trigger);
+    });
+
+    clipboard.on('error', function(e) {
+      setTooltip(e.trigger, 'Failed!');
+      hideTooltip(e.trigger);
+    });
+
+    $('.modal').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+    });
+  </script>
   
 </html>

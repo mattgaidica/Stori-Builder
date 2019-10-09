@@ -1,33 +1,23 @@
 <% @title=@thought.name %>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-  <%= render 'layouts/notice', notice: @notice %>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <%= render 'header', thought: @thought %>
-  </div>
+<%= render 'layouts/notice', notice: @notice %>
+<div class="card mb-3">
+  <%= render 'header', thought: @thought %>
+</div>
 
 <div class="row">
   <div class="col">
-  <ul id="strands" class="list-group list-group-flush" data-url="<%= sort_strands_path %>">
-  	<% @thought.strands.each_with_index do |strand,index| %>
-      <li style="padding: 0.5rem 0.75rem;" id="<%= dom_id(strand) %>" class="list-group-item  list-group-item-action">
-        <%= link_to raw('<span aria-hidden="true" class="fe fe-close fe-small"></span>'), strand, method: :delete, :class => 'close' %>
-        <!--<%= link_to raw('<span aria-hidden="true" class="fe fe-file fe-small"></span>'), edit_source_path(strand.annotation.source_id), class: 'close' %>-->
-        <small class="smaller"><%= strand.annotation.body %></small>
-      </li>
-  	<% end %>
-	</ul>
-</div>
-<div class="col">
-  <div id="stori">
-    <%= render 'stori', thought: @thought %>
+    <ul id="strands" class="list-group" data-url="<%= sort_strands_path %>">
+    	<% @thought.strands.each_with_index do |strand,index| %>
+        <li id="<%= dom_id(strand) %>" class="list-group-item  list-group-item-action">
+          <%= link_to raw('<button class="close float-none" type="button" aria-label="Close"><span aria-hidden="true">×</span></button>'), strand, method: :delete, :class => 'close' %>
+          <small class="smaller"><%= strand.annotation.body %></small>
+        </li>
+    	<% end %>
+  	</ul>
+  </div>
+  <div class="col">
+    <div id="stori">
+      <%= render 'stori', thought: @thought %>
+    </div>
   </div>
 </div>
-
-  </div>
-  <br>
-
-  <%= link_to 'Destroy', @thought, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-outline-danger" %>
-  
-  <div class="clearfix"></div>
-  <br>
-</main>

@@ -14,7 +14,7 @@
 
 <% @results.map{|x,y|x}.uniq.each do |source_id| %>
   <div class="card mb-3">
-    <%= link_to edit_source_path(Source.find(source_id)), :class => "" do %>
+    <%= link_to edit_source_path(Source.find(source_id)), :class => "card-link" do %>
       <div class="card-header bg-light">
         <h5 class="mb-0"><%= highlight(Source.find(source_id).title,@search_term) %></h5>
         <span><%= highlight(Source.find(source_id).authors,@search_term) %></span>
@@ -24,11 +24,7 @@
     <div class="card-body border-top">
       <% @results.map{|x,y| y if x==source_id}.compact.sort.each do |annotation_id| %>
           <div class="media">
-            <a href="#!">
-              <div class="avatar avatar-2xl">
-                <div class="avatar-name rounded-circle"><span><% unless Hold.where(annotation_id: annotation_id).present? %><span class="tiny"><%= link_to 'H', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "little-hold" %></span> <% end %></span></div>
-              </div>
-            </a>
+            <%= button_to 'Hold', holds_path(:annotation_id => Annotation.find(annotation_id)), method: :post, :class => "btn btn-warning btn-sm mr-1 mb-1", disabled: Hold.where(annotation_id: annotation_id).present? %>
             <div class="media-body position-relative pl-3">
               <p class="fs--1"><%= highlight(Annotation.find(annotation_id).body,@search_term) %></p>
               <hr class="border-dashed border-bottom-0">

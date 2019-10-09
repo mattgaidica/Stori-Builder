@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+ .hold-caption {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.25rem .5rem;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.hold-caption:hover {
+  overflow: visible;
+  white-space: normal;
+}
+a.rm-hold-caption {
+  text-decoration: none;
+  color: #495057;
+}
+a.rm-hold-caption:hover {
+  color: #dc3545;
+  text-decoration: none;
+}
+
+#strands li {
+    cursor: pointer;
+}

@@ -6,7 +6,7 @@
 
       <p class="card-text">
         <% @thought.strands.each_with_index do |strand,index| %>
-          <small class="smaller" id="slave_strand_<%= strand.id %>"><mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,@thought.source_info[1][index]) %>,90%,95%)"><%= strand.annotation.body %><sup><%= link_to edit_source_path(strand.annotation.source_id), class: "deco-none" do %><%= @thought.source_info[1][index] %></sup></mark></small><% end %>
+          <small class="smaller" id="slave_strand_<%= strand.id %>"><mark style="background-color:hsl(<%= shift_hsv(50,@thought.source_info[0].uniq.count,@thought.source_info[1][index]) %>,90%,95%)"><%= strand.annotation.body %><sup><%= link_to edit_source_path(strand.annotation.source_id) do %><%= @thought.source_info[1][index] %></sup></mark></small><% end %>
         <% end %>
       </p>
       <p class="card-text">
