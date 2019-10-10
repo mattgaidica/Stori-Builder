@@ -1,5 +1,10 @@
 class StacksController < ApplicationController
-  before_action :set_stack, only: [:show, :edit, :update, :destroy]
+  before_action :set_stack, only: [:show, :edit, :update, :destroy, :showsource]
+
+  def showsource
+    @stack.update(pref_annotations_showsource: !@stack.pref_annotations_showsource)
+    redirect_back(fallback_location: root_path)
+  end
 
   # GET /stacks
   # GET /stacks.json

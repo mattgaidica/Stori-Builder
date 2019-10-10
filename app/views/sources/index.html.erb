@@ -1,7 +1,7 @@
 <% @title="Sources" %>
 <%= render 'layouts/notice', notice: @notice %>
 <% @sources.order(:title).in_groups_of(3) do |group| %>
-  <div class="card-group">
+  <div class="card-deck">
     <% group.each do |source| %>
       <div class="card">
         <% if source.nil? %>
@@ -13,11 +13,14 @@
             <div class="card-body">
               <h5 class="card-title"><%= source.title %></h5>
               <p class="card-text"><%= source.authors %></p>
-              <p class="card-text"><small class="text-muted"><%= source.id %> | Updated <%= time_ago_in_words(source.created_at) %> ago</small></p>
             </div>
           </a>
+          <div class="card-footer bg-light">
+            <p class="fs--1 mb-0"><strong class="float-right"><%= source.id %></strong>Updated <%= time_ago_in_words(source.created_at) %> ago</p>
+          </div>
         <% end %>
       </div>
     <% end %>
   </div>
+  <br>
 <% end %>

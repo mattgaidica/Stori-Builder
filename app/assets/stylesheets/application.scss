@@ -38,3 +38,12 @@ a.rm-hold-caption:hover {
 #strands li {
     cursor: pointer;
 }
+
+.card-footer{
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+.card-deck .card{
+  padding-bottom:50px;
+}

@@ -1,5 +1,14 @@
 class AnnotationsController < ApplicationController
-  before_action :set_annotation, only: [:show, :edit, :update, :destroy]
+  before_action :set_annotation, only: [:show, :edit, :update, :destroy, :toggle]
+
+  def toggle
+    if Hold.where(annotation_id: @annotation.id).present?
+      Hold.where(annotation_id: @annotation.id).first.destroy!
+    else
+      Hold.create(annotation_id: @annotation.id)
+    end
+    redirect_back(fallback_location: root_path)
+  end
 
   # GET /annotations
   # GET /annotations.json

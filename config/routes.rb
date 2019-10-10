@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   end
 
   get '/sources/:id/reimport', to: 'sources#reimport', as: 'reimport'
+  get '/annotations/:id/toggle', to: 'annotations#toggle', as: 'toggle'
+  get '/stacks/:id/showsource', to: 'stacks#showsource', as: 'showsource'
 
   resources :thoughts
   patch '/thoughts/:id/transfer', to: 'thoughts#transfer', as: 'transfer'

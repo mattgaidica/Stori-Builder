@@ -90,10 +90,10 @@
               <ul class="navbar-nav flex-column">
                 <% Hold.all.each do |hold| %>
                   <li class="nav-item">
-                    <%= link_to(hold_path(hold), method: :delete, :class => "rm-hold-caption") do %>
+                    <a href="<%= toggle_path(hold.annotation_id) %>" class="rm-hold-caption">
                       <p class="hold-caption"><small><% if defined? @thought and @thought.id.present? and @thought.annotations.where(id: hold.annotation_id).present? %>✓ <% else %>&bull; <% end %><%= hold.annotation.body %></small></p>
                       <% end %>
-                    <% end %>
+                    </a>
                 </li>
               </ul>
           </div>
