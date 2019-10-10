@@ -1,39 +1,23 @@
 <% @title="Sources" %>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-  <%= render 'layouts/notice', notice: @notice %>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Sources</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group mr-2">
-        <button class="btn btn-sm btn-outline-secondary">Title</button>
-        <button class="btn btn-sm btn-outline-secondary">Created</button>
+<%= render 'layouts/notice', notice: @notice %>
+<% @sources.order(:title).in_groups_of(3) do |group| %>
+  <div class="card-group">
+    <% group.each do |source| %>
+      <div class="card">
+        <% if source.nil? %>
+          <div class="card-body" style="padding:0.75rem;">
+            <div style="font-size:7.5rem;text-align:center;"><a href="#" data-toggle="modal" data-target="#sourceModal" class="deco-none">+</a></div>
+          </div>
+        <% else %>
+          <a href="<%= url_for edit_source_path(source)%>" class="card-link">
+            <div class="card-body">
+              <h5 class="card-title"><%= source.title %></h5>
+              <p class="card-text"><%= source.authors %></p>
+              <p class="card-text"><small class="text-muted"><%= source.id %> | Updated <%= time_ago_in_words(source.created_at) %> ago</small></p>
+            </div>
+          </a>
+        <% end %>
       </div>
-    </div>
+    <% end %>
   </div>
-
-  <% @sources.order(:title).in_groups_of(3) do |group| %>
-    <div class="card-deck">
-      <% group.each do |source| %>
-        <div class="card text-white bg-dark source-card" style="width: 18rem;">
-          <% if source.nil? %>
-            <div class="card-body" style="padding:0.75rem;">
-              <div style="font-size:7.5rem;text-align:center;"><a href="#" data-toggle="modal" data-target="#sourceModal" class="deco-none">+</a></div>
-            </div>
-          <% else %>
-              <div class="card-body" style="padding:0.75rem;">
-              <h6 class="card-title"><%= link_to source.title, edit_source_path(source), class: 'deco-none' %></h6>
-              <h6 class="card-subtitle mb-2 text-muted smaller"><%= source.authors %></h6>
-            </div>
-            <div class="card-footer" style="padding: 0.5rem 0.75rem;<% if source.updated_at > 60.minutes.ago %>background-color: rgb(225, 255, 225);<% else %>background-color: #efefef;<% end %>">
-              <small class="text-muted smaller"><%= source.id %> | Updated <%= time_ago_in_words(source.created_at) %> ago</small>
-              <%= link_to raw('&times'), source, method: :delete, style: 'opacity:1', class: 'card-link close remove float-right', data: { confirm: 'Are you sure?' } %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-    <br>
-  <% end %>
-
-
-</main>
+<% end %>

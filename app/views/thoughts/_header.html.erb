@@ -4,13 +4,17 @@
 	    <h5 class="mb-2 mb-md-0"><%= @thought.name %></h5>
 	  </div>
 	  <div class="col-auto">
+
+	  	<% if current_page?(controller: :thoughts, action: :edit) %>
+	  		<%= link_to 'Destroy', @thought, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-sm mb-2 mb-sm-0 text-danger" %>
+	  	<% end %>
+
+	  	<button class="btn btn-sm mb-2 mb-sm-0 clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'stori_plain', thought: @thought %>">Copy</button>
 	  	<% if current_page?(controller: :thoughts, action: :edit) %>
 	  		<%= link_to 'Done', @thought, :class => "btn btn-falcon-success btn-sm mb-2 mb-sm-0", :role => "button" %>
 	  	<% else %>
-	      <%= link_to 'Edit', edit_thought_path(@thought), :class => "btn btn-falcon-secondary btn-sm mb-2 mb-sm-0", :role => "button" %>
+	      <%= link_to 'Edit', edit_thought_path(@thought), :class => "btn btn-falcon-default btn-sm mb-2 mb-sm-0", :role => "button" %>
 	    <% end %>
-	    <button class="btn btn-falcon-secondary btn-sm mb-2 mb-sm-0 clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'stori_plain', thought: @thought %>">Copy</button>
-	    <%= link_to 'Destroy', @thought, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-falcon-danger btn-sm mb-2 mb-sm-0" %>
 	  </div>
 	</div>
 </div>

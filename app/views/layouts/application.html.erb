@@ -33,7 +33,7 @@
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a class="nav-link" href="../index.html"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-toggle="modal" data-target="#sourceModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
                   <li class="nav-item"><a class="nav-link" href="../home/feed.html"><span class="fas fa-file-import"></span> Import</a>
                   </li>
@@ -48,7 +48,7 @@
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a class="nav-link" href="../index.html"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-toggle="modal" data-target="#thoughtModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
                   </li>
                 </ul>
@@ -57,12 +57,14 @@
 
             <ul class="navbar-nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/thoughts" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
-                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bookmark"></span></span><span>Bookmarks</span>
+                <a class="nav-link" href="<%= url_for(action: 'reading',controller: 'pages') %>" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
+                  <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bookmark"></span></span>
+                    <span>Bookmarks<% if Citation.where(is_read: false).count > 0 %> <span class="badge badge-pill ml-2 badge-soft-danger"><%= Citation.where(is_read: false).count.to_s %></span><% end %>
+                  </span>
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a class="nav-link" href="../index.html"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-toggle="modal" data-target="#citationModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
                   </li>
                 </ul>
@@ -119,7 +121,31 @@
                 </li>
               </ul>
               <ul class="navbar-nav align-items-center ml-auto">
-                <li class="nav-item dropdown"><a class="nav-link px-0" href="../e-commerce/shopping-cart.html"><span class="fas fa-bell fs-4" data-fa-transform="shrink-7"></span></a></li>
+                <li class="nav-item dropdown"><a class="nav-link" id="navbarDropdownNotification" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-film fs-4" data-fa-transform="shrink-6"></span></a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-card" aria-labelledby="navbarDropdownNotification">
+                    <div class="card card-notification shadow-none" style="max-width: 20rem">
+                      <div class="card-header">
+                        <div class="row justify-content-between align-items-center">
+                          <div class="col-auto">
+                            <h6 class="card-header-title mb-0">Recent Activity</h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-group list-group-flush font-weight-normal fs--1">
+                        <% Thought.order("updated_at DESC").limit(500).each do |thought| %>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush bg-200" href="<%= url_for thought %>">
+                              <div class="notification-body">
+                                <p class="mb-1"><strong><%= thought.name %></strong><span class="badge badge-pill ml-2 badge-soft-primary"> <%= thought.strands.count %></span></p>
+                                <span class="notification-time">Visited <%= distance_of_time_in_words(Time.now,thought.updated_at) %> ago</span>
+                              </div>
+                            </a>
+                          </div>
+                        <% end %>
+                    
+                    </div>
+                  </div>
+                </li>
 
                 <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-2xl">
@@ -150,6 +176,78 @@
 
       </div>
     </main>
+
+    <!-- Citation Modal -->
+    <div class="modal fade" id="citationModal" tabindex="-1" role="dialog" aria-labelledby="New Citation" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">New Bookmark</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <%= form_with(model: Citation.new, local: true) do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.text_area :cited_as, :class => "form-control", :placeholder => "Cited as...",:autofocus => true, :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Source Modal -->
+    <div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-labelledby="New Source" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">New Source</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <%= form_with(model: Source.new, local: true) do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.text_field :title, :class => "form-control", :placeholder => "Title",:autofocus => true, :autocomplete => :off %>
+            </div>
+            <div class="form-group">
+              <%= form.text_field :authors, :class => "form-control", :placeholder => "Authors", :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thought Modal -->
+    <div class="modal fade" id="thoughtModal" tabindex="-1" role="dialog" aria-labelledby="New Thought" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">New Thought</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <%= form_with(model: Thought.new, local: true) do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.text_field :name, :class => "form-control", :placeholder => "Thought Name",:autofocus => true, :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </body>
 
   <script>
