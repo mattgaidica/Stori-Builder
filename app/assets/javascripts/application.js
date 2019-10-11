@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery3
 //= require jquery-ui/widget
 //= require jquery-ui-sortable
@@ -20,4 +19,9 @@
 //= require bootstrap
 //= require clipboard
 //= require autosize
+//= require jquery.dataTables.min.js
+//= require dataTables.bootstrap4.min.js
+//= require dataTables.responsive.js
+//= require responsive.bootstrap4.js
+//= require turbolinks
 //= require_tree .

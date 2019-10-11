@@ -20,11 +20,12 @@
 			<% else %>
 				<a href="<%= showsource_url(1) %>" class="btn mr-2">Show Source</a>
 			<% end %>
-			<%= form.submit "Save", :class => "btn btn-falcon-default mr-2"%>
       <!--<% if @source.html_file.present? %>
         <%= link_to 'Reimport', reimport_path(@source), :class => "btn btn-outline-success" %>
       <% end %>-->
-      <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-falcon-danger" %>
+      <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-falcon-danger mr-2" %>
+
+      <%= form.submit "Save", :class => "btn btn-falcon-default mr-2"%>
 		</div>
 	</div>
 </div>

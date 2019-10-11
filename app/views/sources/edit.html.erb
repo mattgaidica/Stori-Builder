@@ -14,15 +14,19 @@
           <%= form.hidden_field :authors %>
           <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
             <div class="media">
-              <a href="<%= toggle_url(annotation_fields.object.id) %>" class="<% if Hold.where(annotation_id: annotation_fields.object.id).present? %>disabled<% end %> btn btn-warning btn-sm mr-1 mb-1">Hold</a>
+              <a href="<%= toggle_url(annotation_fields.object.id) %>" class="nav-link<% if Hold.where(annotation_id: annotation_fields.object.id).present? %> disabled<% end %>"><span class="fas fa-hand-holding-heart"></span></a>
               <div class="media-body position-relative pl-3">
                 <div class="form-group">
                   <%= annotation_fields.text_area :body, class: "form-control fs-0" %>
                   <% if !annotation_fields.object.body_source.nil? && Stack.first.pref_annotations_showsource %>
                     <p class="fs--1"><%= annotation_fields.object.body_source %></p>
                   <% end %>
+                  <div class="fs--1">
+                    <span class="float-right"><%= annotation_fields.object.id %></span>
+                    <%= annotation_fields.check_box :is_summary %> is summary
+                  </div>
 
-                  <span class="tiny" style="line-height:0;"><em><%= annotation_fields.object.id %></em> | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %></span>
+                  <!--  | <%= link_to 'Destroy', annotation_fields.object, method: :delete, data: { confirm: 'Are you sure?' }, class: "remove" %> -->
                 </div>
                 <hr class="border-dashed border-bottom-0">
               </div>
@@ -41,7 +45,7 @@
   <hr>
   <%= render(:partial => "pages/reading_list") %>
 <% end %>
-  
+
 <!-- Annotation Modal -->
 <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="New Annotation" aria-hidden="true">
   <div class="modal-dialog" role="document">
