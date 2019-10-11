@@ -34,7 +34,7 @@
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
                   <li class="nav-item"><a data-toggle="modal" data-target="#sourceModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
-                  <li class="nav-item"><a class="nav-link" href="../home/feed.html"><span class="fas fa-file-import"></span> Import</a>
+                  <li class="nav-item"><a data-toggle="modal" data-target="#sourceImportModal" class="nav-link" href="#"><span class="fas fa-file-import"></span> Import</a>
                   </li>
                 </ul>
               </li>
@@ -247,6 +247,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Source Import Modal -->
+    <!-- default found in config/environments -->
+    <div class="modal fade" id="sourceImportModal" tabindex="-1" role="dialog" aria-labelledby="New Source Import" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="">Import Source</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+          </div>
+          <%= form_with url: import_sources_path, method: :post, local: true, :class => "contents" do |form| %>
+          <div class="modal-body">
+            <div class="form-group">
+              <%= form.text_field :source_path, :class => "form-control form-control-dark w-100", :value => Stack.first.pref_settings_importpath, 'aria-label' => 'Source path', :autocomplete => :off %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= form.submit 'Submit', :class => "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
   </body>
 
   <script>
@@ -317,6 +342,11 @@
     $('.modal').on('shown.bs.modal', function() {
       $(this).find('[autofocus]').focus();
     });
+
+    $( document ).on('turbolinks:load', function() {
+      $('#data-table').DataTable();
+    });
+
   </script>
   
 </html>

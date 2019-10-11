@@ -49,3 +49,10 @@ a.rm-hold-caption:hover {
 .card-deck .card{
   padding-bottom:50px;
 }
+
+.breakit {
+  word-break: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 20px;
+}

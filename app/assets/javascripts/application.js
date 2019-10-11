@@ -19,9 +19,10 @@
 //= require bootstrap
 //= require clipboard
 //= require autosize
-//= require jquery.dataTables.min.js
-//= require dataTables.bootstrap4.min.js
+//= require jquery.dataTables.js
+//= require dataTables.bootstrap4.js
 //= require dataTables.responsive.js
 //= require responsive.bootstrap4.js
+//= require jquery.turbolinks
 //= require turbolinks
 //= require_tree .
