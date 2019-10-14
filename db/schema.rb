@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_125136) do
+ActiveRecord::Schema.define(version: 2019_10_14_165017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_125136) do
     t.datetime "updated_at", null: false
     t.string "body_source"
     t.boolean "is_summary"
+    t.boolean "is_finding", default: false
     t.index ["source_id"], name: "index_annotations_on_source_id"
   end
 
@@ -54,6 +55,18 @@ ActiveRecord::Schema.define(version: 2019_10_07_125136) do
     t.bigint "entity_id", null: false
     t.bigint "source_id", null: false
     t.index ["entity_id", "source_id"], name: "index_entities_sources_on_entity_id_and_source_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hashtags_sources", id: false, force: :cascade do |t|
+    t.bigint "hashtag_id", null: false
+    t.bigint "source_id", null: false
+    t.index ["hashtag_id", "source_id"], name: "index_hashtags_sources_on_hashtag_id_and_source_id"
   end
 
   create_table "holds", force: :cascade do |t|

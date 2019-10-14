@@ -1,9 +1,18 @@
-
 <div class="card-body">
   <div class="row">
     <div class="col-lg-12">
+    	<button data-toggle="modal" data-target="#sourceEditModal"  class="close float-right" type="button" aria-label="Edit">
+	  <span class="fas fa-edit"></span>
+	</button>
       <h3 class="mb-0 fs-2"><%= @source.title %></h3>
       <p class="mt-2"><%= @source.authors %></p>
+      <% if @source.hashtags.present? %>
+      	<p>
+      		<% @source.hashtags.each do |hashtag| %>
+      			<small><a class="p-1" href="#">#<%= hashtag.content %></a></small>
+      		<% end %>
+      	</p>
+      <% end %>
   	</div>
   </div>
 </div>

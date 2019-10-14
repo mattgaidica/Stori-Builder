@@ -107,6 +107,6 @@ class SourcesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def source_params
-      params.require(:source).permit(:title, :authors, annotations_attributes: [:id, :body, :body_source, :is_summary], citations_attributes: [:id, :is_read])
+      params.require(:source).permit(:title, :authors, :hashtags_copy, annotations_attributes: [:id, :body, :body_source, :is_summary, :is_finding], citations_attributes: [:id, :is_read])
     end
 end

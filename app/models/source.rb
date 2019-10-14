@@ -4,6 +4,7 @@ class Source < ApplicationRecord
 	has_many :annotations, dependent: :destroy
   has_many :citations, dependent: :destroy
   has_and_belongs_to_many :entities, -> { distinct }
+  has_and_belongs_to_many :hashtags, -> { distinct }
   accepts_nested_attributes_for :annotations, :citations
 
   before_create do
@@ -13,6 +14,21 @@ class Source < ApplicationRecord
       self.authors = self.authors.strip.chomp(',')
       self.authors = self.authors.squish
     end
+  end
+
+  def hashtags_unused
+    Hashtag.where.not(id: self.hashtags.map{|hashtag| hashtag.id}).order(:updated_at).reverse.last(10)
+  end
+
+  def hashtags_copy=(hashtags)
+    self.hashtags.clear
+    hashtags.gsub(/\s+/, "").downcase.split('#').reject(&:empty?).each do |content|
+      self.hashtags << Hashtag.find_or_create_by(content: content)
+      Hashtag.find_by_content(content).touch
+    end
+  end
+  def hashtags_copy
+    self.hashtags.map{|hashtag| "##{hashtag.content}"}.join(' ')
   end
 
   # def aylien
