@@ -26,3 +26,9 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require_tree .
+
+let setHeight = (input) => {
+  input.style.overflow = 'hidden';
+  input.style.height = 0;
+  input.style.height = `${ input.scrollHeight + 2 }px`;
+};

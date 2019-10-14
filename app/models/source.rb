@@ -7,6 +7,11 @@ class Source < ApplicationRecord
   has_and_belongs_to_many :hashtags, -> { distinct }
   accepts_nested_attributes_for :annotations, :citations
 
+  before_destroy do
+    self.hashtags.delete_all
+    Hashtag.purge
+  end
+
   before_create do
     unless self.authors.nil?
       self.authors = self.authors.gsub(/[^a-z ,\.]/i,'')
@@ -26,6 +31,7 @@ class Source < ApplicationRecord
       self.hashtags << Hashtag.find_or_create_by(content: content)
       Hashtag.find_by_content(content).touch
     end
+    Hashtag.purge # sledge hammer
   end
   def hashtags_copy
     self.hashtags.map{|hashtag| "##{hashtag.content}"}.join(' ')

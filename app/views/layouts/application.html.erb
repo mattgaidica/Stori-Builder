@@ -388,12 +388,6 @@
       $('#data-table').DataTable();
     });
 
-    let setHeight = (input) => {
-      input.style.overflow = 'hidden';
-      input.style.height = 0;
-      input.style.height = `${ input.scrollHeight + 2 }px`;
-    };
-
     $(".hashtag").click(function() {
       $(".hashtags").append(" " + $(this).text());
       $(".hashtags").each(function () {

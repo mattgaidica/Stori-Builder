@@ -19,7 +19,7 @@
     <% @sources.order(:title).each do |source| %>
       <tr>
         <td><%= source.id %></td>
-        <td><a href="<%= edit_source_path(source) %>" class=""><%= truncate(source.title, length: 60, separator: ' ') %></a></td>
+        <td><a href="<%= edit_source_path(source) %>"><%= truncate(source.title, length: 60, separator: ' ') %></a></td>
         <td><%= source.authors %></td>
         <td><%= source.annotations.count.to_s %></td>
         <td><%= source.created_at.strftime("%m/%d/%Y") %></td>

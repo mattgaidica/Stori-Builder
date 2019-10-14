@@ -4,4 +4,11 @@ class Hashtag < ApplicationRecord
 	before_create do
 		self.content.gsub(/\s+/, "").downcase
 	end
+
+	# sledge hammer, see source.rb model
+	def self.purge
+		Hashtag.all.each do |hashtag|
+			hashtag.destroy if hashtag.sources.empty? 
+		end
+	end
 end
