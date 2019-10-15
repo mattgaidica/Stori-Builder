@@ -1,0 +1,21 @@
+<%= @source.title %>
+
+<%= @source.authors %>
+
+Summary
+---
+<% @source.annotations.where(is_summary: true).each do |annotation| %>
+- <%= annotation.body %>
+<% end %>
+
+Key Findings
+---
+<% @source.annotations.where(is_finding: true).each do |annotation| %>
+- <%= annotation.body %>
+<% end %>
+
+Other Annotations
+---
+<% @source.annotations.where(is_summary: false, is_finding: false).each do |annotation| %>
+- <%= annotation.body %>
+<% end %>

@@ -10,7 +10,6 @@ class SourcesController < ApplicationController
   # GET /sources/1
   # GET /sources/1.json
   def show
-    redirect_to edit_source_path(@source)
   end
 
   # GET /sources/new
