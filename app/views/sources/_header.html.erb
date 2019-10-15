@@ -9,7 +9,7 @@
       <% if @source.hashtags.present? %>
       	<p>
       		<% @source.hashtags.each do |hashtag| %>
-      			<small><a class="p-1" href="#">#<%= hashtag.content %></a></small>
+      			<small><a class="p-1" href="/search/<%= hashtag.content %>">#<%= hashtag.content %></a></small>
       		<% end %>
       	</p>
       <% end %>
