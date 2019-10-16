@@ -1,0 +1,14 @@
+insert<br><br>
+
+<% Hashtag.all.each do |hashtag| %>
+  $keyword<%= hashtag.id %> isa keyword, has hashtag "<%= hashtag.content %>";<br>
+<% end %>
+
+<% tag_index = 0 %>
+<% Source.all.each do |source| %>
+  $source<%= source.id %> isa source, has title "<%= source.title %>", has authors "<%= source.authors %>";<br>
+  <% source.hashtags.each do |hashtag| %>
+    <% tag_index += 1; %>
+    $connection<%= tag_index %> (data: $source<%= source.id %>, topic: $keyword<%= hashtag.id %>) isa connection;<br>
+  <% end %>
+<% end %>

@@ -30,7 +30,8 @@ If `Process exited with code '0': 'Uncaught exception at thread [Failed to bind]
 grakn console -k stori -f /Users/matt/Documents/Software/Stori-Builder/grakn/sources_schema.gql
 grakn console -k stori -f /Users/matt/Documents/Software/Stori-Builder/grakn/sources_data.gql
 
-match $conn (topic: $x, data: $y) isa connection; get; offset 0; limit 30;
+match $conn (topic: $x, data: $y) isa connection; get; offset 0; limit 2000;
+match $x isa keyword; get;
 
 graql console -k stori
 clean
