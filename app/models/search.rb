@@ -6,7 +6,8 @@ class Search < ApplicationRecord
     # if found in title, attach all annotations
     Source.where("lower(title) LIKE ? OR lower(authors) LIKE ?", "%#{term.downcase}%", "%#{term.downcase}%").each do |source|
       source.annotations.each do |annotation|
-        results[annot_count] = [source.id,annotation.id]
+        results[annot_count] = [source.id,nil]
+        # results[annot_count] = [source.id,annotation.id]
         annot_count += 1;
       end
     end
@@ -24,13 +25,13 @@ class Search < ApplicationRecord
       hashtag.sources.each do |source|
         unless cur_annots.index(source.id)
           source.annotations.each do |annotation|
-            results[annot_count] = [source.id,annotation.id]
+            results[annot_count] = [source.id,nil]
+            # results[annot_count] = [source.id,annotation.id]
             annot_count += 1;
           end
         end
       end
     end
-
-    return results.sort.reverse
+    return results
   end
 end

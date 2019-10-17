@@ -3,6 +3,10 @@ class Citation < ApplicationRecord
   belongs_to :source, optional: true
   default_scope { order(created_at: :desc) }
 
+  def self.unread_sources
+    self.where.not(source_id: nil, is_read: true).map{|x| x.source}.uniq
+  end
+
   def title
     parsed = AnyStyle.parse(self.cited_as)
     begin

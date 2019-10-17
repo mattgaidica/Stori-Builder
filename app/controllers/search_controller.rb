@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  # https://github.com/ankane/searchkick#getting-started
   def index
     if params.has_key?(:term)
       @search_term = params[:term];

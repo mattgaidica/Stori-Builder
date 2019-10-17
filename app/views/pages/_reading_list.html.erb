@@ -1,28 +1,36 @@
-<% if @citations_unread.present? %>
-  <%= form_tag read_citations_path, method: :put do %>
-    <% @citations_unread.each do |citation| %>
-      <div style="margin-bottom:10px;" class="form-check">
-        <%= check_box_tag "citation_ids[]", citation.id, citation.is_read, id: "form-check-#{citation.id}", class:"form-check-input" %>
-        <label style="display:inline;" class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
-          <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
-        </label>
-        <% unless citation.source_id.nil? %>
-        <br><small class="text-muted">&rarr; <%= link_to citation.source.title, edit_source_path(citation.source), class: "deco-none" %></small>
+<%= form_tag read_citations_path, method: :put do %>
+  <% Citation.unread_sources.each do |source| %>
+    <div class="card mb-3">
+        <div class="card-header bg-light">
+          <%= submit_tag "Update", class: "mt-2 btn btn-sm btn-outline-primary float-right" %>
+          <h5><a class="text-600" href="<%= url_for edit_source_path(source) %>"><%= source.title %></a></h5>
+          <p class="mb-1"><%= source.authors %></p>
+        </div>
+      <div class="card-body border-top">
+        <% source.citations.where(is_read: false).each do |citation| %>
+          <div class="form-check">
+            <%= check_box_tag "citation_ids[]", citation.id, citation.is_read, id: "form-check-#{citation.id}", class:"form-check-input" %>
+            <label class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
+              <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
+            </label>
+          </div>
         <% end %>
       </div>
-    <% end %>
-    <br>
-    <%= submit_tag "Update", class: "btn btn-outline-primary" %> 
+    </div>
   <% end %>
-<% else %>
-  <p>Nothing to read.</p>
-<% end %>
 
-<% if @citations_read.present? %>
-  <br>
-  <br>
-  <h5>Archived</h5>
-  <% @citations_read.each do |citation| %>
-    <p class="small text-muted"><%= citation.cited_as %><% unless citation.source_id.nil? %><%= link_to raw(" &rarr; "), edit_source_path(citation.source), class: "deco-none" %><%end%></p>
+  <% if Citation.where(source_id: nil, is_read: false).present? %>
+    <%= submit_tag "Update", class: "mt-2 btn btn-sm btn-outline-primary float-right" %>
+    <h4 class="mt-4">No Source</h4>
+    <div class="card-body border-top">
+      <% Citation.where(source_id: nil, is_read: false).each do |citation| %>
+        <div class="form-check">
+          <%= check_box_tag "citation_ids[]", citation.id, citation.is_read, id: "form-check-#{citation.id}", class:"form-check-input" %>
+          <label class="form-check-label" for=<%= "form-check-#{citation.id}" %>>
+            <%= highlight(citation.cited_as, citation.title, highlighter: "<a target='_blank' href='#{citation.link}'>#{citation.title}</a>") %>
+          </label>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
