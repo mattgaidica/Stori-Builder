@@ -1,5 +1,6 @@
 <%= form_tag read_citations_path, method: :put do %>
-  <% Citation.unread_sources.each do |source| %>
+  <% defined?(@source) ? (sources = Source.where(id: @source.id)) : (sources = Citation.unread_sources) %>
+  <% sources.each do |source| %>
     <div class="card mb-3">
         <div class="card-header bg-light">
           <%= submit_tag "Update", class: "mt-2 btn btn-sm btn-outline-primary float-right" %>
