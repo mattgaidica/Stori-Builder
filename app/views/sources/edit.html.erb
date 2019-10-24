@@ -14,7 +14,7 @@
           <%= form.hidden_field :authors %>
           <%= form.fields_for :annotations, @source.annotations.each do |annotation_fields| %>
             <div class="media">
-              <a href="<%= toggle_url(annotation_fields.object.id) %>" class="nav-link<% if Hold.where(annotation_id: annotation_fields.object.id).present? %> text-danger<% else %> text-secondary<% end %>"><span class="fas fa-hand-holding-heart"></span></a>
+              <a href="<%= toggle_url(annotation_fields.object.id) %>" id="annot-<%= annotation_fields.object.id %>" class="nav-link<% if Hold.where(annotation_id: annotation_fields.object.id).present? %> text-danger<% else %> text-secondary<% end %>"><span class="fas fa-hand-holding-heart"></span></a>
               <div class="media-body position-relative pl-3">
                 <div class="form-group">
                   <%= annotation_fields.text_area :body, class: "form-control fs-0" %>

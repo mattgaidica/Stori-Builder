@@ -386,6 +386,12 @@
 
     $( document ).on('turbolinks:load', function() {
       $('#data-table').DataTable();
+      var urlHash = window.location.href.split("#")[1];
+      if(typeof urlHash != 'undefined') {
+        $('html,body').animate({
+            scrollTop: $('#' + urlHash).first().offset().top - 300
+        }, 0);
+      }
     });
 
     $(".hashtag").click(function() {

@@ -2,12 +2,14 @@ class AnnotationsController < ApplicationController
   before_action :set_annotation, only: [:show, :edit, :update, :destroy, :toggle]
 
   def toggle
-    if Hold.where(annotation_id: @annotation.id).present?
+    hld = Hold.where(annotation_id: @annotation.id).first
+    if hld.present?
       Hold.where(annotation_id: @annotation.id).first.destroy!
     else
-      Hold.create(annotation_id: @annotation.id)
+      hld = Hold.create(annotation_id: @annotation.id)
     end
-    redirect_back(fallback_location: root_path)
+    # env["HTTP_REFERER"] += "#hld-#{hld.id}"
+    redirect_to request.referer + "#annot-#{hld.annotation_id}"
   end
 
   # GET /annotations

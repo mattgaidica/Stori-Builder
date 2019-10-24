@@ -28,7 +28,7 @@
       <div class="card-body border-top">
         <% @results.map{|x,y| y if x==source_id}.compact.sort.each do |annotation_id| %>
           <div class="media">
-            <a href="<%= toggle_url(annotation_id) %>" class="nav-link<% if Hold.where(annotation_id: annotation_id).present? %> text-danger<% else %> text-secondary<% end %>"><span class="fas fa-hand-holding-heart"></span></a>
+            <a href="<%= toggle_url(annotation_id) %>" id="annot-<%= annotation_id %>" class="nav-link<% if Hold.where(annotation_id: annotation_id).present? %> text-danger<% else %> text-secondary<% end %>"><span class="fas fa-hand-holding-heart"></span></a>
             <div class="media-body position-relative pl-3">
               <p class="fs--1"><%= highlight(Annotation.find(annotation_id).body,@search_term) %></p>
               <hr class="border-dashed border-bottom-0">
