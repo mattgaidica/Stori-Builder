@@ -7,8 +7,6 @@ Stori
 - Thought has strands, strands relate thought and annotation (are positioned)
 - Hold has annotation
 
-**Open**
-- What are entities? I think these are 'tags'. Source has entities through entities_sources.
 
 Rails
 ---
@@ -19,6 +17,7 @@ Rails
 ```
 > rake db:migrate:down VERSION=20100905201547
 > rails destroy scaffold MyFoo
+> lsof -wni tcp:3000
 ```
 
 Grakn

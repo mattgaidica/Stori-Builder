@@ -1,0 +1,4 @@
+<%= @thought.name %>
+<% @thought.strands.each_with_index do |strand,index| %>
+- <%= strand.annotation.body %>{<-<%= Source.find(@thought.source_info[0][index]).title.truncate_words(5) %>}
+<% end %>

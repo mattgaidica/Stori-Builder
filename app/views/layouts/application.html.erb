@@ -221,7 +221,7 @@
             <div class="form-group">
               <label for="hashtags">Recently Used</label>
               <p>
-                <% Hashtag.all.each do |hashtag| %>
+                <% Hashtag.all.limit(25).each do |hashtag| %>
                   <small id="hashtag<%= hashtag.id %>" class="hashtag btn-falcon-default btn-sm mt-2 btn hashtag">#<%= hashtag.content %></small>
                 <% end %>
               </p>
@@ -235,50 +235,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Source Edit Modal -->
-    <% if defined?(@source) %>
-      <div class="modal fade" id="sourceEditModal" tabindex="-1" role="dialog" aria-labelledby="Edit Source" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="">Edit Source</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
-            </div>
-            <%= form_with(model: @source, local: true) do |form| %>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="name">Title</label>
-                <%= form.text_area :title, :class => "form-control", :placeholder => "Title", :autocomplete => :off %>
-              </div>
-              <div class="form-group">
-                <label for="authors">Authors</label>
-                <%= form.text_field :authors, :class => "form-control", :placeholder => "Authors", :autocomplete => :off %>
-              </div>
-              <div class="form-group">
-                <label for="hashtags">Hashtags</label>
-                <%= form.text_area :hashtags_copy, :class => "form-control hashtags", :autocomplete => :off %>
-              </div>
-              <% if @source.hashtags_unused.present? %>
-                <div class="form-group">
-                  <label for="hashtags">Recently Used</label>
-                  <p>
-                    <% @source.hashtags_unused.each do |hashtag| %>
-                      <small id="hashtag<%= hashtag.id %>" class="btn-falcon-default btn-sm mt-2 btn hashtag">#<%= hashtag.content %></small>
-                    <% end %>
-                  </p>
-                </div>
-              <% end %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <%= form.submit 'Submit', :class => "btn btn-primary" %>
-            </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
 
     <!-- Thought Modal -->
     <div class="modal fade" id="thoughtModal" tabindex="-1" role="dialog" aria-labelledby="New Thought" aria-hidden="true">

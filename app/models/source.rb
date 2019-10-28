@@ -22,7 +22,7 @@ class Source < ApplicationRecord
   end
 
   def hashtags_unused
-    Hashtag.where.not(id: self.hashtags.map{|hashtag| hashtag.id}).order(:updated_at).reverse.last(25)
+    Hashtag.where.not(id: self.hashtags.map{|hashtag| hashtag.id}).order(:updated_at).last(25).reverse
   end
 
   def hashtags_copy=(hashtags)

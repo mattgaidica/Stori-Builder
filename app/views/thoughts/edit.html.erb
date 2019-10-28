@@ -8,7 +8,7 @@
   <div class="col">
     <ul id="strands" class="list-group" data-url="<%= sort_strands_path %>">
     	<% @thought.strands.each_with_index do |strand,index| %>
-        <li id="<%= dom_id(strand) %>" class="list-group-item  list-group-item-action">
+        <li id="<%= dom_id(strand) %>" class="list-group-item list-group-item-action thought-list">
           <%= link_to raw('<button class="close float-none" type="button" aria-label="Close"><span aria-hidden="true">×</span></button>'), strand, method: :delete, :class => 'close' %>
           <small class="smaller"><%= strand.annotation.body %></small>
         </li>
