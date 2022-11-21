@@ -7,9 +7,9 @@ import utils from './Utils';
 -----------------------------------------------*/
 utils.$document.ready(() => {
   // https://getbootstrap.com/docs/4.0/components/tooltips/#example-enable-tooltips-everywhere
-  $('[data-toggle="tooltip"]').tooltip({ container: '.content' });
-  $('[data-toggle="popover"]').popover({ container: '.content' });
+  $('[data-bs-toggle="tooltip"]').tooltip({ container: '.content' });
+  $('[data-bs-toggle="popover"]').popover({ container: '.content' });
   $('body').tooltip({
-    selector: '[data-toggle=tooltip]'
+    selector: '[data-bs-toggle=tooltip]'
   })
 });

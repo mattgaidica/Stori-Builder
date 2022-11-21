@@ -19,9 +19,9 @@
                 <div class="form-group">
                   <%= annotation_fields.text_area :body, class: "form-control fs-0" %>
                   <% if !annotation_fields.object.body_source.nil? && Stack.first.pref_annotations_showsource %>
-                    <p class="fs--1"><small class="badge badge-pill badge-soft-secondary"><strong> <%= annotation_fields.object.body_source.downcase.similar(annotation_fields.object.body.downcase).round %>%</strong></small> <%= annotation_fields.object.body_source %></p>
+                    <p class="fs--1" style="margin-bottom:0;"><small class="badge badge-pill badge-soft-secondary"><strong> <%= annotation_fields.object.body_source.downcase.similar(annotation_fields.object.body.downcase).round %>%</strong></small> <%= annotation_fields.object.body_source %></p>
                   <% end %>
-                  <div class="fs--1">
+                  <div class="fs--1" style="margin-top: 1rem;">
                     <span class="float-right"><%= annotation_fields.object.id %></span>
                       <span class="p-2">
                       <%= annotation_fields.check_box :is_summary %> is summary
@@ -57,7 +57,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">New Annotation</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+        <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
       </div>
       <%= form_with(model: Annotation.new, local: true) do |form| %>
       <div class="modal-body">
@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <%= form.submit 'Submit', :class => "btn btn-primary" %>
       </div>
       <% end %>
@@ -81,7 +81,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">Edit Source</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+        <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
       </div>
       <%= form_with(model: @source, local: true) do |form| %>
       <div class="modal-body">
@@ -109,7 +109,7 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <%= form.submit 'Submit', :class => "btn btn-primary" %>
       </div>
       <% end %>

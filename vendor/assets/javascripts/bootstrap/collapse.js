@@ -101,7 +101,7 @@
   };
   var Selector = {
     ACTIVES: '.show, .collapsing',
-    DATA_TOGGLE: '[data-toggle="collapse"]'
+    DATA_TOGGLE: '[data-bs-toggle="collapse"]'
     /**
      * ------------------------------------------------------------------------
      * Class Definition
@@ -117,7 +117,7 @@
       this._isTransitioning = false;
       this._element = element;
       this._config = this._getConfig(config);
-      this._triggerArray = [].slice.call(document.querySelectorAll("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
+      this._triggerArray = [].slice.call(document.querySelectorAll("[data-bs-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-bs-toggle=\"collapse\"][data-bs-target=\"#" + element.id + "\"]")));
       var toggleList = [].slice.call(document.querySelectorAll(Selector.DATA_TOGGLE));
 
       for (var i = 0, len = toggleList.length; i < len; i++) {
@@ -322,7 +322,7 @@
         parent = document.querySelector(this._config.parent);
       }
 
-      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
+      var selector = "[data-bs-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
       var children = [].slice.call(parent.querySelectorAll(selector));
       $(children).each(function (i, element) {
         _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);

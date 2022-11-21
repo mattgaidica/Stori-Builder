@@ -82,7 +82,7 @@
       return prefix;
     },
     getSelectorFromElement: function getSelectorFromElement(element) {
-      var selector = element.getAttribute('data-target');
+      var selector = element.getAttribute('data-bs-target');
 
       if (!selector || selector === '#') {
         var hrefAttr = element.getAttribute('href');

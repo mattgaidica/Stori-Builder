@@ -1,7 +1,7 @@
 <div class="card-body">
   <div class="row">
     <div class="col-lg-12">
-    	<button data-toggle="modal" data-target="#sourceEditModal"  class="close float-right" type="button" aria-label="Edit">
+    	<button data-bs-toggle="modal" data-bs-target="#sourceEditModal"  class="close float-right" type="button" aria-label="Edit">
 	  <span class="fas fa-edit"></span>
 	</button>
       <h3 class="mb-0 fs-2"><%= @source.title %></h3>
@@ -20,7 +20,7 @@
 <div class="card-body bg-300">
 	<div class="row">
 		<div class="col fs-0">
-			<a data-toggle="modal" data-target="#annotationModal" class="btn" href="#"><span class="fas fa-plus"></span> New Annotation</a>
+			<a data-bs-toggle="modal" data-bs-target="#annotationModal" class="btn" href="#"><span class="fas fa-plus"></span> New Annotation</a>
 		</div>
 
 		<div class="col-auto">
@@ -33,7 +33,7 @@
         <%= link_to 'Reimport', reimport_path(@source), :class => "btn btn-outline-success" %>
       <% end %>-->
       <%= link_to 'Destroy', @source, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-falcon-danger mr-2" %>
-      <a href="#" class="btn mr-2 btn-falcon-default clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'source_plain', source: @source %>">Copy</a>
+      <a href="" class="btn mr-2 btn-falcon-default clipboard-btn" data-clipboard-action="copy" data-clipboard-text="<%= render 'source_plain', source: @source %>">Copy</a>
       <%= form.submit "Save", :class => "btn btn-falcon-default mr-2"%>
 		</div>
 	</div>

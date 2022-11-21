@@ -97,7 +97,7 @@
     delay: 500
   };
   var Selector = {
-    DATA_DISMISS: '[data-dismiss="toast"]'
+    DATA_DISMISS: '[data-bs-dismiss="toast"]'
     /**
      * ------------------------------------------------------------------------
      * Class Definition

@@ -45,8 +45,8 @@
     FOCUS: 'focus'
   };
   var Selector = {
-    DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
-    DATA_TOGGLE: '[data-toggle="buttons"]',
+    DATA_TOGGLE_CARROT: '[data-bs-toggle^="button"]',
+    DATA_TOGGLE: '[data-bs-toggle="buttons"]',
     INPUT: 'input:not([type="hidden"])',
     ACTIVE: '.active',
     BUTTON: '.btn'

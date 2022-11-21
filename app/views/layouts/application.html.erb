@@ -13,10 +13,6 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.css"/> -->
-<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script> -->
-
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-mutate-approach="sync"></script>
   </head>
@@ -198,7 +194,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="">New Bookmark</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
           </div>
           <%= form_with(model: Citation.new, local: true) do |form| %>
           <div class="modal-body">
@@ -207,7 +203,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <%= form.submit 'Submit', :class => "btn btn-primary" %>
           </div>
           <% end %>
@@ -221,7 +217,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="">New Source</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
           </div>
           <%= form_with(model: Source.new, local: true) do |form| %>
           <div class="modal-body">
@@ -244,7 +240,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <%= form.submit 'Submit', :class => "btn btn-primary" %>
           </div>
           <% end %>
@@ -258,7 +254,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="">New Thought</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
           </div>
           <%= form_with(model: Thought.new, local: true) do |form| %>
           <div class="modal-body">
@@ -267,7 +263,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <%= form.submit 'Submit', :class => "btn btn-primary" %>
           </div>
           <% end %>
@@ -282,7 +278,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="">Import Source</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
           </div>
           <%= form_with url: import_sources_path, method: :post, local: true, :class => "contents" do |form| %>
           <div class="modal-body">
@@ -291,7 +287,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <%= form.submit 'Submit', :class => "btn btn-primary" %>
           </div>
           <% end %>
@@ -318,36 +314,36 @@
       autosize(this);
     });
 
-    // Tooltip
+    // Tooltip !! NOT WORKING RAILS UPGRADE
     // $('.clipboard-btn').tooltip({
     //   trigger: 'click',
     //   placement: 'bottom'
     // });
 
-    // function setTooltip(btn, message) {
-    //   $(btn).tooltip('show')
-    //     .attr('data-original-title', message)
-    //     .tooltip('show');
-    // }
+    function setTooltip(btn, message) {
+      $(btn).tooltip('show')
+        .attr('data-original-title', message)
+        .tooltip('show');
+    }
 
-    // function hideTooltip(btn) {
-    //   setTimeout(function() {
-    //     $(btn).tooltip('hide');
-    //   }, 1000);
-    // }
+    function hideTooltip(btn) {
+      setTimeout(function() {
+        $(btn).tooltip('hide');
+      }, 1000);
+    }
 
     // Clipboard
     var clipboard = new Clipboard('.clipboard-btn');
 
-    // clipboard.on('success', function(e) {
-    //   setTooltip(e.trigger, 'Copied!');
-    //   hideTooltip(e.trigger);
-    // });
+    clipboard.on('success', function(e) {
+      setTooltip(e.trigger, 'Copied!');
+      hideTooltip(e.trigger);
+    });
 
-    // clipboard.on('error', function(e) {
-    //   setTooltip(e.trigger, 'Failed!');
-    //   hideTooltip(e.trigger);
-    // });
+    clipboard.on('error', function(e) {
+      setTooltip(e.trigger, 'Failed!');
+      hideTooltip(e.trigger);
+    });
 
     $('.modal').on('shown.bs.modal', function() {
       $(this).find('[autofocus]').focus();
@@ -356,8 +352,9 @@
       });
     });
 
-    $( document ).on('turbolinks:load', function() {
+    $( document ).ready(function() {
       $('#data-table').DataTable();
+      // if URL is hashed, scroll user to has location
       var urlHash = window.location.href.split("#")[1];
       if(typeof urlHash != 'undefined') {
         $('html,body').animate({

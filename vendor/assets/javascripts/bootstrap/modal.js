@@ -112,8 +112,8 @@
   var Selector = {
     DIALOG: '.modal-dialog',
     MODAL_BODY: '.modal-body',
-    DATA_TOGGLE: '[data-toggle="modal"]',
-    DATA_DISMISS: '[data-dismiss="modal"]',
+    DATA_TOGGLE: '[data-bs-toggle="modal"]',
+    DATA_DISMISS: '[data-bs-dismiss="modal"]',
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top'
     /**
