@@ -12,6 +12,11 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.css"/> -->
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.10.25/datatables.min.js"></script> -->
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-mutate-approach="sync"></script>
   </head>
@@ -27,14 +32,14 @@
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <ul class="navbar-nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/sources" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
+                <a class="nav-link" href="/sources" data-bs-toggle="" role="button" aria-expanded="false" aria-controls="home">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-copy"></span></span><span>Sources</span>
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a data-toggle="modal" data-target="#sourceModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#sourceModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
-                  <li class="nav-item"><a data-toggle="modal" data-target="#sourceImportModal" class="nav-link" href="#"><span class="fas fa-file-import"></span> Import</a>
+                  <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#sourceImportModal" class="nav-link" href="#"><span class="fas fa-file-import"></span> Import</a>
                   </li>
                 </ul>
               </li>
@@ -42,12 +47,12 @@
 
             <ul class="navbar-nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="/thoughts" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
+                <a class="nav-link" href="/thoughts" data-bs-toggle="" role="button" aria-expanded="false" aria-controls="home">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-brain"></span></span><span>Thoughts</span>
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a data-toggle="modal" data-target="#thoughtModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#thoughtModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
                   </li>
                 </ul>
@@ -56,14 +61,14 @@
 
             <ul class="navbar-nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="<%= url_for(action: 'reading',controller: 'pages') %>" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
+                <a class="nav-link" href="<%= url_for(action: 'reading',controller: 'pages') %>" data-bs-toggle="" role="button" aria-expanded="false" aria-controls="home">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bookmark"></span></span>
                     <span>Bookmarks<% if Citation.where(is_read: false).count > 0 %> <span class="badge badge-pill ml-2 badge-soft-danger"><%= Citation.where(is_read: false).count.to_s %></span><% end %>
                   </span>
                   </div>
                 </a>
                 <ul class="nav" id="home" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item"><a data-toggle="modal" data-target="#citationModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
+                  <li class="nav-item"><a data-bs-toggle="modal" data-bs-target="#citationModal" class="nav-link" href="#"><span class="fas fa-plus"></span> New</a>
                   </li>
                   </li>
                 </ul>
@@ -72,7 +77,7 @@
 
             <ul class="navbar-nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="<%= url_for :grakn %>" data-toggle="" role="button" aria-expanded="false" aria-controls="home">
+                <a class="nav-link" href="<%= url_for :grakn %>" data-bs-toggle="" role="button" aria-expanded="false" aria-controls="home">
                   <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-project-diagram"></span></span>
                     <span>Grakn</span>
                   </span>
@@ -111,7 +116,7 @@
 
         <div class="content">
           <nav class="navbar navbar-light navbar-glass fs--1 font-weight-semi-bold row navbar-top sticky-kit navbar-expand">
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><a class="navbar-brand text-left ml-3" href="../index.html">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><a class="navbar-brand text-left ml-3" href="../index.html">
               <div class="d-flex align-items-center"><span class="text-sans-serif">Stori</span>
               </div>
             </a>
@@ -131,7 +136,7 @@
                 </li>
               </ul>
               <ul class="navbar-nav align-items-center ml-auto">
-                <li class="nav-item dropdown"><a class="nav-link" id="navbarDropdownNotification" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-film fs-4" data-fa-transform="shrink-6"></span></a>
+                <li class="nav-item dropdown"><a class="nav-link" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-film fs-4" data-fa-transform="shrink-6"></span></a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-card" aria-labelledby="navbarDropdownNotification">
                     <div class="card card-notification shadow-none" style="max-width: 20rem">
                       <div class="card-header">
@@ -157,7 +162,7 @@
                   </div>
                 </li>
 
-                <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-2xl">
                       <div class="avatar-name rounded-circle"><span>MG</span></div>
                     </div>
@@ -314,35 +319,35 @@
     });
 
     // Tooltip
-    $('.clipboard-btn').tooltip({
-      trigger: 'click',
-      placement: 'bottom'
-    });
+    // $('.clipboard-btn').tooltip({
+    //   trigger: 'click',
+    //   placement: 'bottom'
+    // });
 
-    function setTooltip(btn, message) {
-      $(btn).tooltip('show')
-        .attr('data-original-title', message)
-        .tooltip('show');
-    }
+    // function setTooltip(btn, message) {
+    //   $(btn).tooltip('show')
+    //     .attr('data-original-title', message)
+    //     .tooltip('show');
+    // }
 
-    function hideTooltip(btn) {
-      setTimeout(function() {
-        $(btn).tooltip('hide');
-      }, 1000);
-    }
+    // function hideTooltip(btn) {
+    //   setTimeout(function() {
+    //     $(btn).tooltip('hide');
+    //   }, 1000);
+    // }
 
     // Clipboard
     var clipboard = new Clipboard('.clipboard-btn');
 
-    clipboard.on('success', function(e) {
-      setTooltip(e.trigger, 'Copied!');
-      hideTooltip(e.trigger);
-    });
+    // clipboard.on('success', function(e) {
+    //   setTooltip(e.trigger, 'Copied!');
+    //   hideTooltip(e.trigger);
+    // });
 
-    clipboard.on('error', function(e) {
-      setTooltip(e.trigger, 'Failed!');
-      hideTooltip(e.trigger);
-    });
+    // clipboard.on('error', function(e) {
+    //   setTooltip(e.trigger, 'Failed!');
+    //   hideTooltip(e.trigger);
+    // });
 
     $('.modal').on('shown.bs.modal', function() {
       $(this).find('[autofocus]').focus();
